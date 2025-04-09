@@ -4,7 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4594b223-659d-4439-8e3b-0e16869fe774" name="Changes" comment="(0409) feat: component annotation">
+    <list default="true" id="4594b223-659d-4439-8e3b-0e16869fe774" name="Changes" comment="(0409) feat: Spring XML 기반 CheatSheet DI 설정 예제 추가">
+      <change afterPath="$PROJECT_DIR$/src/main/java/b_inject/a_autowired/AppConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/b_inject/a_autowired/JdbcProperties.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/b_inject/a_autowired/JdbcTemplate.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/b_inject/a_autowired/Run.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/b_inject/a_autowired/TransactionManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/b_inject/b_constructor/JdbcProperties.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/b_inject/b_constructor/JdbcTemplate.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/inject/autowired/application-context.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -51,9 +59,9 @@
     "Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "13a37123",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/imseohyeon/Desktop/Programmers/backend/f_spring/spring-core/src/main/resources/regist/annotation/configuration",
+    "last_opened_file_path": "/Users/imseohyeon/Desktop/Programmers/backend/f_spring/spring-core/src/main/resources/el",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -67,14 +75,15 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/main/resources/regist/annotation/configuration" />
+      <recent name="$PROJECT_DIR$/src/main/resources/el" />
+      <recent name="$PROJECT_DIR$/src/main/resources/inject/constructor" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/resources/regist/xml/bean" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="a_regist.b_annotation.configuration" />
-      <recent name="a_regist.b_annotation" />
+      <recent name="c_el.bean" />
+      <recent name="b_inject.b_configuration" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -94,7 +103,7 @@
       <option name="presentableId" value="Default" />
       <updated>1744093722404</updated>
       <workItem from="1744093723465" duration="3297000" />
-      <workItem from="1744156852535" duration="6319000" />
+      <workItem from="1744156852535" duration="5690000" />
     </task>
     <task id="LOCAL-00001" summary="(0408) init">
       <option name="closed" value="true" />
@@ -152,15 +161,7 @@
       <option name="project" value="LOCAL" />
       <updated>1744161893466</updated>
     </task>
-    <task id="LOCAL-00008" summary="(0409) feat: component annotation">
-      <option name="closed" value="true" />
-      <created>1744162804736</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1744162804736</updated>
-    </task>
-    <option name="localTasksCounter" value="9" />
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -171,7 +172,6 @@
     <MESSAGE value="(0408) feat: XML 기반 스프링 빈 등록 (Book)" />
     <MESSAGE value="(0409) Spring singleton scope를 활용한 빈 등록" />
     <MESSAGE value="(0409) feat: Spring XML 기반 CheatSheet DI 설정 예제 추가" />
-    <MESSAGE value="(0409) feat: component annotation" />
-    <option name="LAST_COMMIT_MESSAGE" value="(0409) feat: component annotation" />
+    <option name="LAST_COMMIT_MESSAGE" value="(0409) feat: Spring XML 기반 CheatSheet DI 설정 예제 추가" />
   </component>
 </project>
