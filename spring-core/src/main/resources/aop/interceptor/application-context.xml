@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+  <context:component-scan base-package="d_aop.a_interceptor" />
+
+  <!--
+    AOP 용어
+    1. Aspect(Advisor) : 1. 모듈화 할 횡단 관심사 , 2. Advice + Pointcuts
+    2. Advice : 횡단 관심사를 모듈화한 객체
+    3. Join Points : 횡단 관심사를 적용할 수 있는 모든 대상 (Spring bean)
+    4. Pointcuts : Join Points 중 실제로 횡단관심사를 적용할 대상
+    5. Weaving : Advice + Pointcuts 를 합쳐 프록시 객체를 생성하는 과정
+    6. Proxy :  결과 Proxy 객체
+   -->
+
+  <!-- 1. Proxy 객체를 자동으로 생성해주는 bean -->
+  <bean  class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"/>
+
+  <bean class="org.springframework.aop.aspectj.AspectJExpressionPointcutAdvisor">
+    <property name="advice" ref="_Advice" />
+    <!--
+      pointcut expression
+      * : 모든
+      .. : 0개 이상
+      [접근제한자] 리턴타입 [패키지.클래스].메서드(매개변수)
+      -->
+    <property name="expression" value="execution(public * *(..))" />
+  </bean>
+
+</beans>
