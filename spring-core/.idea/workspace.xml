@@ -4,9 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4594b223-659d-4439-8e3b-0e16869fe774" name="Changes" comment="(0408) init">
+    <list default="true" id="4594b223-659d-4439-8e3b-0e16869fe774" name="Changes" comment="(0408) feat: XML 기반 스프링 빈 등록 (Book)">
+      <change afterPath="$PROJECT_DIR$/src/main/java/a_regist/a_xml/bean/Run.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/grepp/App.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/a_regist/a_xml/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/a_regist/a_xml/bean/Book.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/a_regist/a_xml/Run.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/regist/xml/application-context.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/regist/xml/bean/application-context.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,45 +27,52 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "nunLSH"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;nunLSH&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/nunLSH/PD_BE5_ClassPractice_Spring.git",
-    "accountId": "3f007a3e-21ce-47bd-abfa-6cdbe58fcf29"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/nunLSH/PD_BE5_ClassPractice_Spring.git&quot;,
+    &quot;accountId&quot;: &quot;3f007a3e-21ce-47bd-abfa-6cdbe58fcf29&quot;
   }
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 4
-}]]></component>
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
   <component name="ProjectId" id="2vR2m00WwnMBg5mWVh8duGwbRse" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
-    <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Run.executor": "Run",
-    "Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Run.executor&quot;: &quot;Run&quot;,
+    &quot;Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources/regist/xml/bean" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -79,7 +89,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1744093722404</updated>
-      <workItem from="1744093723465" duration="2288000" />
+      <workItem from="1744093723465" duration="3297000" />
+      <workItem from="1744156852535" duration="1973000" />
     </task>
     <task id="LOCAL-00001" summary="(0408) init">
       <option name="closed" value="true" />
@@ -97,7 +108,23 @@
       <option name="project" value="LOCAL" />
       <updated>1744093920669</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="(0408) init">
+      <option name="closed" value="true" />
+      <created>1744096367025</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1744096367025</updated>
+    </task>
+    <task id="LOCAL-00004" summary="(0408) feat: XML 기반 스프링 빈 등록 (Book)">
+      <option name="closed" value="true" />
+      <created>1744097010067</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1744097010067</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -105,6 +132,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="(0408) init" />
-    <option name="LAST_COMMIT_MESSAGE" value="(0408) init" />
+    <MESSAGE value="(0408) feat: XML 기반 스프링 빈 등록 (Book)" />
+    <option name="LAST_COMMIT_MESSAGE" value="(0408) feat: XML 기반 스프링 빈 등록 (Book)" />
   </component>
 </project>
