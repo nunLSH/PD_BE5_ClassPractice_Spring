@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4594b223-659d-4439-8e3b-0e16869fe774" name="Changes" comment="(0408) feat: XML 기반 스프링 빈 등록 (Book)">
-      <change afterPath="$PROJECT_DIR$/src/main/java/a_regist/a_xml/bean/Run.java" afterDir="false" />
+    <list default="true" id="4594b223-659d-4439-8e3b-0e16869fe774" name="Changes" comment="(0409) Spring singleton scope를 활용한 빈 등록">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/a_regist/a_xml/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/a_regist/a_xml/bean/Book.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/a_regist/a_xml/Run.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/regist/xml/application-context.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/regist/xml/bean/application-context.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -90,7 +87,7 @@
       <option name="presentableId" value="Default" />
       <updated>1744093722404</updated>
       <workItem from="1744093723465" duration="3297000" />
-      <workItem from="1744156852535" duration="1973000" />
+      <workItem from="1744156852535" duration="4006000" />
     </task>
     <task id="LOCAL-00001" summary="(0408) init">
       <option name="closed" value="true" />
@@ -124,7 +121,15 @@
       <option name="project" value="LOCAL" />
       <updated>1744097010067</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="(0409) Spring singleton scope를 활용한 빈 등록">
+      <option name="closed" value="true" />
+      <created>1744158857074</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1744158857074</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -133,6 +138,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="(0408) init" />
     <MESSAGE value="(0408) feat: XML 기반 스프링 빈 등록 (Book)" />
-    <option name="LAST_COMMIT_MESSAGE" value="(0408) feat: XML 기반 스프링 빈 등록 (Book)" />
+    <MESSAGE value="(0409) Spring singleton scope를 활용한 빈 등록" />
+    <option name="LAST_COMMIT_MESSAGE" value="(0409) Spring singleton scope를 활용한 빈 등록" />
   </component>
 </project>

@@ -3,11 +3,18 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-  <bean id="harrypotter" class="a_regist.a_xml.Book">
+  <bean id="harryPotter" class="a_regist.a_xml.bean.Book" scope="singleton">
     <property name="author" value="조앤롤링"/>
     <property name="title" value="해리포터"/>
     <property name="publisher" value="grepp"/>
     <property name="page" value="1000"/>
+  </bean>
+
+  <bean id="ringOfKing" class="a_regist.a_xml.bean.Book" scope="singleton">
+    <constructor-arg name="title" value="반지의 제왕"/>
+    <constructor-arg name="author" value="훌륭하신 분"/>
+    <constructor-arg name="publisher" value="출판사"/>
+    <constructor-arg name="page" value="3000"/>
   </bean>
 
 </beans>
