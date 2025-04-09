@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+  <bean id="now" class="java.time.LocalDate" factory-method="now"/>
+  <bean id="lsh" class="a_regist.a_xml.cheatsheet.Score">
+    <constructor-arg name="name" value="임서현"/>
+    <constructor-arg name="kor" value="100"/>
+    <constructor-arg name="math" value="100"/>
+    <constructor-arg name="eng" value="100"/>
+  </bean>
+
+  <bean id="cheatsheet" class="a_regist.a_xml.cheatsheet.CheatSheet">
+    <constructor-arg name="now" ref="now"/>
+    <property name="status" value="SUCCESS"/>
+    <property name="number" value="9999"/>
+    <property name="array">
+      <array>
+        <value>임서현</value>
+        <value>채봉구</value>
+        <value>한노아</value>
+        <value>도은호</value>
+      </array>
+    </property>
+    <property name="list">
+      <list>
+        <value>봄</value>
+        <value>여름</value>
+        <value>가을</value>
+        <value>겨울</value>
+      </list>
+    </property>
+    <property name="set">
+      <set>
+        <value>1</value>
+        <value>2</value>
+        <value>3</value>
+        <value>4</value>
+      </set>
+    </property>
+    <property name="map">
+      <map>
+        <entry key="Spring" value="봄"/>
+        <entry key="Summer" value="여름"/>
+        <entry key="Autumn" value="가을"/>
+        <entry key="Winter" value="겨율"/>
+      </map>
+    </property>
+    <property name="properties">
+      <props>
+        <prop key="sky">하늘</prop>
+        <prop key="happy">행복</prop>
+      </props>
+    </property>
+    <property name="score" ref="lsh"/>
+    <property name="scores">
+      <list>
+        <ref bean="lsh"/>
+        <bean class="a_regist.a_xml.cheatsheet.Score">
+          <constructor-arg name="name" value="lsh"/>
+          <constructor-arg name="kor" value="100"/>
+          <constructor-arg name="math" value="100"/>
+          <constructor-arg name="eng" value="100"/>
+        </bean>
+      </list>
+    </property>
+  </bean>
+
+</beans>
