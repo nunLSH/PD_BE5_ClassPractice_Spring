@@ -112,4 +112,13 @@ public class UrlEncodedController {
         log.info("sessionAttribute : {}", principal);
         return "spring/session";
     }
+
+    @GetMapping("cookie/regist")
+    public String registCookie(
+        HttpServletResponse response
+    ){
+        Cookie cookie = new Cookie("server_cookie", "this_is_server_cookie");
+        response.addCookie(cookie);
+        return "spring/cookie";
+    }
 }
