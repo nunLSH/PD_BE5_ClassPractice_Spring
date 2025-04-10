@@ -1,25 +1,30 @@
 package com.grepp.spring.app.controller.web.urlencoded;
 
 import com.grepp.spring.app.controller.web.urlencoded.form.UrlEncodedForm;
+import com.grepp.spring.app.controller.web.urlencoded.validator.UrlEncodedValidator;
 import com.grepp.spring.app.model.urlencoded.dto.UrlEncodedDto;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import java.time.LocalDateTime;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 // NOTE 01 @Controller
 // 1. 해당 클래스를 bean으로 등록
@@ -32,6 +37,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("form")
 @Slf4j
+@RequiredArgsConstructor
 public class UrlEncodedController {
 
     // SLF4J : Simple Logging Facade for Java
@@ -43,6 +49,15 @@ public class UrlEncodedController {
     // 3. ModelAndView :
     //        model : Controller 에서 view 로 전달할 데이터를 저장하는 객체
     //        view  : view 의 경로
+
+    // model 의 속성명을 지정
+    // model 에 form 객체를 바인드 하는 시점에
+    // 검증, 포맷팅 등의 작업을 수행
+    @InitBinder("urlEncodedForm")
+    private void urlEncodedBinder(WebDataBinder binder){
+        binder.addValidators(new UrlEncodedValidator());
+    }
+
     @GetMapping
     public String form(UrlEncodedForm form){
         log.debug("form  메서드");
@@ -109,8 +124,10 @@ public class UrlEncodedController {
     @PostMapping("session/regist")
     public String registSession(
         UrlEncodedForm form,
-        HttpSession session
+        HttpSession session,
+        RedirectAttributes redirectAttributes
     ){
+        redirectAttributes.addAttribute("attr", "welcome");
         session.setAttribute("principal", form);
         return "redirect:/form/session/result";
     }
