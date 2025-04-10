@@ -77,4 +77,21 @@ public class UrlEncodedController {
         mav.setViewName("spring/result");
         return mav;
     }
+
+    // NOTE 03 : @PathVariable
+    @PostMapping("path/{id}")
+    public String pathVariable(
+        @PathVariable()
+        String id,
+        @RequestParam(required = false)
+        String email,
+        String tel,
+        LocalDateTime createdAt,
+        Model model
+    ) {
+        log.info("createdAt : {}", createdAt);
+        model.addAttribute("dto",
+            new UrlEncodedDto(id, email, tel));
+        return "spring/result";
+    }
 }
