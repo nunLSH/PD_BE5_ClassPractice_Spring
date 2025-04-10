@@ -3,6 +3,8 @@ package com.grepp.spring.app.controller.web.urlencoded;
 import com.grepp.spring.app.controller.web.urlencoded.form.UrlEncodedForm;
 import com.grepp.spring.app.controller.web.urlencoded.validator.UrlEncodedValidator;
 import com.grepp.spring.app.model.urlencoded.dto.UrlEncodedDto;
+import com.grepp.spring.infra.error.exceptions.WebException;
+import com.grepp.spring.infra.response.ResponseCode;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -146,5 +148,10 @@ public class UrlEncodedController {
         Cookie cookie = new Cookie("server_cookie", "this_is_server_cookie");
         response.addCookie(cookie);
         return "spring/cookie";
+    }
+
+    @GetMapping("error")
+    public String error(){
+        throw new WebException(ResponseCode.BAD_REQUEST);
     }
 }
