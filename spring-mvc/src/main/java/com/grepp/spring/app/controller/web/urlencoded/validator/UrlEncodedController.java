@@ -1,12 +1,22 @@
 package com.grepp.spring.app.controller.web.urlencoded.validator;
 
 import com.grepp.spring.app.controller.web.urlencoded.form.UrlEncodedForm;
+import com.grepp.spring.app.model.urlencoded.dto.UrlEncodedDto;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.time.LocalDateTime;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.servlet.ModelAndView;
 
 // NOTE 01 @Controller
 // 1. 해당 클래스를 bean 으로 등록
@@ -32,19 +42,25 @@ public class UrlEncodedController {
     //           view  : view 의 경로
 
     @GetMapping
-    public String form(){
+    public String form() {
         log.info("form 메서드");
         // forward
         return "spring/form";
     }
 
     @PostMapping
-    public String form(UrlEncodedForm form,
+    public String form(
         // 암묵적인 @ModelAttribute
-        Model model){
+        UrlEncodedForm form,
+        Model model) {
         log.info("model : {}", model);
         log.info("form : {}", model);
-        model.addAttribute("payload", form);
+
+        UrlEncodedDto dto = new UrlEncodedDto(
+            form.getUserId(),
+            form.getEmail(),
+            form.getTel());
+        model.addAttribute("dto", dto);
         return "spring/result";
     }
 }
