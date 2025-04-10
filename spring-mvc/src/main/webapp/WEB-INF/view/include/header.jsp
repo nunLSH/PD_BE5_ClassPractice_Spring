@@ -1,5 +1,4 @@
 <%@ page language="java" %>
-<%@ page import="com.grepp.servlet.app.auth.Principal" %>
 <header class="header">
     <nav class="navbar white">
         <div class="nav-wrapper ">
