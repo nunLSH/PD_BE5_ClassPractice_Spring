@@ -1,10 +1,11 @@
 package com.grepp.spring.app.controller.web.urlencoded.validator;
 
+import com.grepp.spring.app.controller.web.urlencoded.form.UrlEncodedForm;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 // NOTE 01 @Controller
@@ -35,5 +36,15 @@ public class UrlEncodedController {
         log.info("form 메서드");
         // forward
         return "spring/form";
+    }
+
+    @PostMapping
+    public String form(UrlEncodedForm form,
+        // 암묵적인 @ModelAttribute
+        Model model){
+        log.info("model : {}", model);
+        log.info("form : {}", model);
+        model.addAttribute("payload", form);
+        return "spring/result";
     }
 }
