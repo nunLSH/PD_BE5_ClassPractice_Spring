@@ -16,6 +16,7 @@ import org.hibernate.validator.constraints.Length;
 @ToString
 @NoArgsConstructor
 public class UrlEncodedForm {
+
     @NotBlank
     private String userId;
 
