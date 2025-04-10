@@ -63,4 +63,18 @@ public class UrlEncodedController {
         model.addAttribute("dto", dto);
         return "spring/result";
     }
+
+    @PostMapping("modelandview")
+    public ModelAndView modelandview(UrlEncodedForm form) {
+        ModelAndView mav = new ModelAndView();
+
+        UrlEncodedDto dto = new UrlEncodedDto(
+            form.getUserId(),
+            form.getEmail(),
+            form.getTel());
+
+        mav.addObject("dto", dto);
+        mav.setViewName("spring/result");
+        return mav;
+    }
 }
