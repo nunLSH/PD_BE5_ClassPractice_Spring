@@ -94,4 +94,22 @@ public class UrlEncodedController {
             new UrlEncodedDto(id, email, tel));
         return "spring/result";
     }
+
+    @PostMapping("session/regist")
+    public String registSession(
+        UrlEncodedForm form,
+        HttpSession session
+    ){
+        session.setAttribute("principal", form);
+        return "redirect:/form/session/result";
+    }
+
+    @GetMapping("session/result")
+    public String sessionResult(
+        @SessionAttribute(name = "principal")
+        UrlEncodedForm principal
+    ){
+        log.info("sessionAttribute : {}", principal);
+        return "spring/session";
+    }
 }
