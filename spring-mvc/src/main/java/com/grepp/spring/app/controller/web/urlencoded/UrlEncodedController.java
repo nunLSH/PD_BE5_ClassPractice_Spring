@@ -2,6 +2,7 @@ package com.grepp.spring.app.controller.web.urlencoded;
 
 import com.grepp.spring.app.controller.web.urlencoded.form.UrlEncodedForm;
 import com.grepp.spring.app.controller.web.urlencoded.validator.UrlEncodedValidator;
+import com.grepp.spring.app.model.error.ErrorService;
 import com.grepp.spring.app.model.urlencoded.dto.UrlEncodedDto;
 import com.grepp.spring.infra.error.exceptions.WebException;
 import com.grepp.spring.infra.response.ResponseCode;
@@ -12,8 +13,6 @@ import jakarta.validation.Valid;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -42,6 +41,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequiredArgsConstructor
 public class UrlEncodedController {
 
+    private final ErrorService errorService;
+
     // SLF4J : Simple Logging Facade for Java
     // logging : TRACE > DEBUG > INFO > WARN > ERROR > FATAL
 
@@ -54,7 +55,7 @@ public class UrlEncodedController {
 
     // model 의 속성명을 지정
     // model 에 form 객체를 바인드 하는 시점에
-    // 검증, 포맷팅 등의 작업을 수행
+    // 검증, 포멧팅 등의 작업을 수행
     @InitBinder("urlEncodedForm")
     private void urlEncodedBinder(WebDataBinder binder){
         binder.addValidators(new UrlEncodedValidator());
@@ -129,7 +130,7 @@ public class UrlEncodedController {
         HttpSession session,
         RedirectAttributes redirectAttributes
     ){
-        redirectAttributes.addAttribute("attr", "welcome");
+        redirectAttributes.addAttribute("attr","welcome");
         session.setAttribute("principal", form);
         return "redirect:/form/session/result";
     }
@@ -152,6 +153,8 @@ public class UrlEncodedController {
 
     @GetMapping("error")
     public String error(){
-        throw new WebException(ResponseCode.BAD_REQUEST);
+        //throw new WebException(ResponseCode.BAD_REQUEST);
+        errorService.webException();
+        return "";
     }
 }

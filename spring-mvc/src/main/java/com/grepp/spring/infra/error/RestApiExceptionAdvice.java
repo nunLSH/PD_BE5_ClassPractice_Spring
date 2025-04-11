@@ -11,15 +11,14 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.server.MethodNotAllowedException;
 
-@RestControllerAdvice
+@RestControllerAdvice(basePackages = "com.grepp.spring.app.controller.api")
 @Slf4j
 public class RestApiExceptionAdvice {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ApiResponse<Map<String, String>>>
-        validatorHandler(MethodArgumentNotValidException ex){
+    validatorHandler(MethodArgumentNotValidException ex){
         log.info(ex.getMessage(), ex);
 
         Map<String, String> errors = new LinkedHashMap<>();
@@ -38,10 +37,17 @@ public class RestApiExceptionAdvice {
     }
 
     @ExceptionHandler(RestApiException.class)
-    public ResponseEntity<ApiResponse<String>>
-    restApiExceptionHandler(RestApiException ex){
+    public ResponseEntity<ApiResponse<String>> restApiExceptionHandler(RestApiException ex){
         return ResponseEntity
             .status(ex.code().status())
             .body(ApiResponse.error(ex.code()));
+    }
+
+
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<ApiResponse<String>> runtimeExceptionHandler(RuntimeException ex){
+        return ResponseEntity
+            .internalServerError()
+            .body(ApiResponse.error(ResponseCode.INTERNAL_SERVER_ERROR));
     }
 }
