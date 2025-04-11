@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.server.MethodNotAllowedException;
 
 @RestControllerAdvice
 @Slf4j
@@ -20,10 +21,18 @@ public class RestApiExceptionAdvice {
         log.info(ex.getMessage(), ex);
 
         Map<String, String> errors = new LinkedHashMap<>();
-        ex.getAllErrors().forEach(e -> errors.put(e.getObjectName(), e.getDefaultMessage()));
+        ex.getFieldErrors().forEach(e -> errors.put(e.getField(), e.getDefaultMessage()));
         return ResponseEntity
             .badRequest()
             .body(ApiResponse.error(ResponseCode.BAD_REQUEST, errors));
+    }
+
+    @ExceptionHandler(MethodNotAllowedException.class)
+    public ResponseEntity<ApiResponse<String>>
+    methodNotAllowedHandler(MethodArgumentNotValidException ex){
+        return ResponseEntity
+            .badRequest()
+            .body(ApiResponse.error(ResponseCode.BAD_REQUEST, ex.getMessage()));
     }
 
 }
