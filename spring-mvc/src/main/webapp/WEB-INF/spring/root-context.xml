@@ -8,6 +8,5 @@
   <!-- * : 하위 1뎁스의 모든 경로
       ** : 모든 하위 뎁스의 모든 경로
    -->
-  <mvc:resources mapping="/assets/**" location="/assets" />
   <context:component-scan base-package="com.grepp.spring"/>
 </beans>
