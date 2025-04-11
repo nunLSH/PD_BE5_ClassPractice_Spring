@@ -1,5 +1,6 @@
 package com.grepp.spring.infra.error;
 
+import com.grepp.spring.infra.error.exceptions.RestApiException;
 import com.grepp.spring.infra.response.ApiResponse;
 import com.grepp.spring.infra.response.ResponseCode;
 import java.util.LinkedHashMap;
@@ -36,4 +37,11 @@ public class RestApiExceptionAdvice {
             .body(ApiResponse.error(ResponseCode.BAD_REQUEST, ex.getMessage()));
     }
 
+    @ExceptionHandler(RestApiException.class)
+    public ResponseEntity<ApiResponse<String>>
+    restApiExceptionHandler(RestApiException ex){
+        return ResponseEntity
+            .status(ex.code().status())
+            .body(ApiResponse.error(ex.code()));
+    }
 }
