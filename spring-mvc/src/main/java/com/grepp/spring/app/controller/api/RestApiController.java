@@ -2,6 +2,7 @@ package com.grepp.spring.app.controller.api;
 
 import com.grepp.spring.app.controller.api.form.RestForm;
 import com.grepp.spring.app.controller.api.payload.RestPayload;
+import com.grepp.spring.app.controller.api.validator.RestFormValidator;
 import com.grepp.spring.infra.response.ApiResponse;
 import jakarta.validation.Valid;
 import java.text.DateFormat;
@@ -13,8 +14,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +30,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class RestApiController {
 
     // content-type : application/json
-
     @GetMapping("test")
     // @ResponseBody
     public RestPayload test(RestForm form){
@@ -49,4 +51,15 @@ public class RestApiController {
         return ResponseEntity.ok(ApiResponse.noContent());
     }
 
+    @PostMapping
+    public ResponseEntity<ApiResponse<RestPayload>> post(
+        @Valid
+        @RequestBody
+        RestForm form
+    ){
+        log.info("form : {}", form);
+        OffsetDateTime now = OffsetDateTime.now();
+        RestPayload restPayload =  new RestPayload(1, "aaa@aaa.com", now, now.toEpochSecond());
+        return ResponseEntity.ok(ApiResponse.success(restPayload));
+    }
 }
