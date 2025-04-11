@@ -6,6 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -27,9 +28,9 @@ public class RestApiExceptionAdvice {
             .body(ApiResponse.error(ResponseCode.BAD_REQUEST, errors));
     }
 
-    @ExceptionHandler(MethodNotAllowedException.class)
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public ResponseEntity<ApiResponse<String>>
-    methodNotAllowedHandler(MethodArgumentNotValidException ex){
+    methodNotSupportedHandler(HttpRequestMethodNotSupportedException ex){
         return ResponseEntity
             .badRequest()
             .body(ApiResponse.error(ResponseCode.BAD_REQUEST, ex.getMessage()));
