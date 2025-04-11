@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4594b223-659d-4439-8e3b-0e16869fe774" name="Changes" comment="(0409) feat: AOP MethodInterceptor 기반 인터셉터 예제 추가">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-    </list>
+    <list default="true" id="4594b223-659d-4439-8e3b-0e16869fe774" name="Changes" comment="(0409) feat: autoproxy 기반 AOP 예제 추가" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -206,7 +203,15 @@
       <option name="project" value="LOCAL" />
       <updated>1744179444018</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="(0409) feat: autoproxy 기반 AOP 예제 추가">
+      <option name="closed" value="true" />
+      <created>1744179632982</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1744179632982</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -223,6 +228,7 @@
     <MESSAGE value="(0409) feat: SpEL 메서드 호출 예제(D_Method) 추가" />
     <MESSAGE value="(0409) feat: SpEL을 활용한 외부 속성 주입 예제 (E_Properties) 추가" />
     <MESSAGE value="(0409) feat: AOP MethodInterceptor 기반 인터셉터 예제 추가" />
-    <option name="LAST_COMMIT_MESSAGE" value="(0409) feat: AOP MethodInterceptor 기반 인터셉터 예제 추가" />
+    <MESSAGE value="(0409) feat: autoproxy 기반 AOP 예제 추가" />
+    <option name="LAST_COMMIT_MESSAGE" value="(0409) feat: autoproxy 기반 AOP 예제 추가" />
   </component>
 </project>
