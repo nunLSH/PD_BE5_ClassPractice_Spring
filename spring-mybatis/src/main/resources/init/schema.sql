@@ -47,8 +47,8 @@ CREATE TABLE `BOOK_IMG`
     `BI_IDX`           int          NOT NULL auto_increment PRIMARY KEY COMMENT '파일번호',
     `BK_IDX`           int          NOT NULL,
     `TYPE`             VARCHAR(36)  NOT NULL,
-    `ORIGIN_FILE_NAME` VARCHAR(36)  NOT NULL COMMENT '원본파일명',
-    `RENAME_FILE_NAME` VARCHAR(36)  NOT NULL COMMENT '저장파일명',
+    `ORIGIN_FILE_NAME` VARCHAR(255)  NOT NULL COMMENT '원본파일명',
+    `RENAME_FILE_NAME` VARCHAR(255)  NOT NULL COMMENT '저장파일명',
     `SAVE_PATH`        VARCHAR(255) NOT NULL COMMENT '저장경로',
     `CREATED_AT`       timestamp    NULL     DEFAULT now() COMMENT '파일등록일자',
     `ACTIVATED`        boolean      NOT NULL DEFAULT true
