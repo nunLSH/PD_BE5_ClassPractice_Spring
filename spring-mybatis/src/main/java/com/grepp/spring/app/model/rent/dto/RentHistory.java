@@ -11,6 +11,6 @@ public class RentHistory {
     private Integer rentId;
     private Integer rbIdx;
     private Integer bkIdx;
-    private LocalDateTime regDate;
+    private LocalDateTime createdAt;
     private RentState state;
 }

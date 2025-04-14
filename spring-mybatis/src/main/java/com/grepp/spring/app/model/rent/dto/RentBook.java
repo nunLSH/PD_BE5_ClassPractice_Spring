@@ -12,7 +12,7 @@ public class RentBook {
     private Integer rentId;
     private Integer bkIdx;
     private String bookTitle;
-    private LocalDateTime regDate;
+    private LocalDateTime createdAt;
     private RentState state;
     private LocalDate returnDate;
     private Boolean activated;

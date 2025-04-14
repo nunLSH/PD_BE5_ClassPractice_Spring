@@ -16,12 +16,12 @@
       classpath  :  현재 프로젝트의 resource 만 탐색
       classpath* :  현재 프로젝트에 참조된 모든 jar 까지 함께 검색
       -->
-    <property name="mapperLocations" value="classpath*:mybatis/mappers/**/*.xml" />
+    <property name="mapperLocations" value="classpath*:mybatis/mappers/**/*.xml"/>
     <!--
       com.grepp.spring.app.model 패키지 하위의
       모든 클래스의 full name 을 클래스 이름으로 별칭 등록
       -->
-    <!--    <property name="typeAliases" value="com.grepp.spring.app.model" />-->
+    <property name="typeAliasesPackage" value="com.grepp.spring.app.model"/>
     <property name="configuration">
       <bean class="org.apache.ibatis.session.Configuration">
         <property name="mapUnderscoreToCamelCase" value="true"/>
@@ -29,7 +29,8 @@
     </property>
   </bean>
 
-  <mybatis:scan base-package="com.grepp.spring.app.model" annotation="org.apache.ibatis.annotations.Mapper"/>
+  <mybatis:scan base-package="com.grepp.spring.app.model"
+    annotation="org.apache.ibatis.annotations.Mapper"/>
   <context:component-scan base-package="com.grepp.spring"/>
 
 </beans>
