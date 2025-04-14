@@ -41,7 +41,7 @@ values (200001, 100001, 1000, '비행운', 'RENT', '2023-03-13 3:02:40', '2023-0
 insert into rent_book(rb_idx, rent_id, bk_idx, book_title, state, return_date, created_at)
 values (200002, 100001, 1001, '해리포터', 'RENT', '2023-04-13 3:02:40', '2023-04-06 3:02:40');
 insert into rent_book(rb_idx, rent_id, bk_idx, book_title, state, return_date, created_at)
-values (200003, 100002, 1000, '비행운','RENT', '2023-03-13 3:02:40', '2023-03-06 3:02:40');
+values (200003, 100002, 1000, '비행운', 'RENT', '2023-03-13 3:02:40', '2023-03-06 3:02:40');
 insert into rent_book(rb_idx, rent_id, bk_idx, book_title, state, return_date, created_at)
 values (200004, 100002, 1001, '해리포터', 'RENT', '2025-04-13 3:02:40', '2025-03-06 3:02:40');
 insert into rent_book(rb_idx, rent_id, bk_idx, book_title, state, return_date, created_at)
@@ -51,7 +51,7 @@ values (200006, 100003, 1001, '해리포터', 'RENT', '2023-03-13 3:02:40', '202
 insert into rent_book(rb_idx, rent_id, bk_idx, book_title, state, return_date, created_at)
 values (200007, 100004, 1004, '디디의우산', 'RENT', '2023-04-13 3:02:40', '2023-04-06 3:02:40');
 insert into rent_book(rb_idx, rent_id, bk_idx, book_title, state, return_date, created_at)
-values (200008, 100004, 1003, '논리철학논고','RENT', '2023-03-13 3:02:40', '2023-03-06 3:02:40');
+values (200008, 100004, 1003, '논리철학논고', 'RENT', '2023-03-13 3:02:40', '2023-03-06 3:02:40');
 insert into rent_book(rb_idx, rent_id, bk_idx, book_title, state, return_date, created_at)
 values (200009, 100005, 1004, '디디의우산', 'RENT', '2025-04-13 3:02:40', '2025-03-06 3:02:40');
 insert into rent_book(rb_idx, rent_id, bk_idx, book_title, state, return_date, created_at)

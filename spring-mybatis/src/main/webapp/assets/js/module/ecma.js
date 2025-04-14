@@ -7,8 +7,8 @@ const clap = () => {
 const odd = '홀수';
 const even = '짝수';
 const lsh = {
-  username : '임서현',
-  age : 15
+  username: '임서현',
+  age: 15
 }
 
 let count = 0;

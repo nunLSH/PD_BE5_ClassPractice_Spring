@@ -38,7 +38,7 @@ async function createToken() {
 const getToken = async () => {
   const storedToken = JSON.parse(localStorage.getItem('unsplash-token'));
 
-  if(storedToken && dayjs().isBefore(storedToken.expire)){
+  if (storedToken && dayjs().isBefore(storedToken.expire)) {
     return storedToken;
   }
 

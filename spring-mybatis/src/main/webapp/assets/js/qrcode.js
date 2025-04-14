@@ -1,7 +1,6 @@
 import getToken from './module/unsplash.js';
 import weatherApi from './module/openweather.js';
 import geoApi from './module/geolocation.js';
-import unsplash from "./module/unsplash.js";
 
 (async () => {
 

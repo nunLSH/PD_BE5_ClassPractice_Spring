@@ -17,6 +17,6 @@
         <li><c:out value="${dto.lastAccess}"/></li>
     </ul>
 </main>
-<%@ include file="/WEB-INF/view/include/footer.jsp"%>
+<%@ include file="/WEB-INF/view/include/footer.jsp" %>
 </body>
 </html>

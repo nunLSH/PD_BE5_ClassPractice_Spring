@@ -14,26 +14,26 @@
             <div class="input-field col s7 ">
                 <i class="material-icons prefix">account_circle</i>
                 <form:input path="userId" id="userId" name="userId" type="text" placeholder="userId"
-                            class="validate" />
+                            class="validate"/>
                 <form:errors path="userId" cssClass="helper-text"/>
             </div>
             <div class="input-field col s7 ">
                 <i class="material-icons prefix">account_circle</i>
                 <form:input path="password" id="password" name="password" type="password"
                             placeholder="password"
-                            class="validate" />
+                            class="validate"/>
                 <form:errors path="password" cssClass="helper-text"/>
             </div>
             <div class="input-field col s7 ">
                 <i class="material-icons prefix">email</i>
                 <form:input path="email" id="email" name="email" type="email" placeholder="email"
-                            class="validate" />
+                            class="validate"/>
                 <form:errors path="email" cssClass="helper-text"/>
             </div>
             <div class="input-field col s7 ">
                 <i class="material-icons prefix">phone</i>
                 <form:input path="tel" id="tel" name="tel" type="tel" placeholder="tel"
-                            class="validate" />
+                            class="validate"/>
                 <form:errors path="tel" cssClass="helper-text"/>
             </div>
         </div>

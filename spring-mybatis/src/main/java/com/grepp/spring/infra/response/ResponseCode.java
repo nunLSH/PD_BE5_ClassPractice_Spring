@@ -19,15 +19,15 @@ public enum ResponseCode {
         this.message = message;
     }
 
-    public String code(){
+    public String code() {
         return code;
     }
 
-    public HttpStatus status(){
+    public HttpStatus status() {
         return status;
     }
 
-    public String message(){
+    public String message() {
         return message;
     }
 }

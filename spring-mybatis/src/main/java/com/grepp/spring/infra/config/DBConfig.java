@@ -39,7 +39,7 @@ public class DBConfig {
     private String data;
 
     @Bean
-    public DataSource dataSource(){
+    public DataSource dataSource() {
         HikariConfig config = new HikariConfig();
         config.setJdbcUrl(url);
         config.setDriverClassName(driver);
@@ -50,17 +50,17 @@ public class DBConfig {
     }
 
     @PreDestroy
-    public void cleanup(){
+    public void cleanup() {
         AbandonedConnectionCleanupThread.checkedShutdown();
     }
 
     @Bean
-    public DataSourceTransactionManager transactionManager(DataSource dataSource){
+    public DataSourceTransactionManager transactionManager(DataSource dataSource) {
         return new DataSourceTransactionManager(dataSource);
     }
 
     @Bean
-    public ResourceDatabasePopulator databasePopulator(){
+    public ResourceDatabasePopulator databasePopulator() {
         ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
         Resource schemaResource = new ClassPathResource("init/" + schema);
         Resource dataResource = new ClassPathResource("init/" + data);
@@ -72,7 +72,7 @@ public class DBConfig {
 
     @Bean
     public DataSourceInitializer databasePopulatorInitializer(
-        DataSource dataSource, ResourceDatabasePopulator databasePopulator){
+        DataSource dataSource, ResourceDatabasePopulator databasePopulator) {
 
         DataSourceInitializer initializer = new DataSourceInitializer();
         initializer.setDataSource(dataSource);

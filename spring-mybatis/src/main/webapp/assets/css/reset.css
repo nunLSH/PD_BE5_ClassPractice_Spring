@@ -23,41 +23,47 @@ time, mark, audio, video {
   font: inherit;
   vertical-align: baseline;
 }
+
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
   display: block;
 }
+
 body {
   line-height: 1;
 }
+
 ol, ul {
   list-style: none;
 }
+
 blockquote, q {
   quotes: none;
 }
+
 blockquote:before, blockquote:after,
 q:before, q:after {
   content: '';
   content: none;
 }
+
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
 
-button{
+button {
   border: 0 none;
   background-color: transparent;
-  cursor:pointer;
+  cursor: pointer;
   outline: 0;
 }
 
-a{
-  color:black;
+a {
+  color: black;
   text-decoration: none;
-  cursor:pointer;
+  cursor: pointer;
 }
 
 /* 레이아웃 작성을 위한 그림자 css*/

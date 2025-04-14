@@ -1,6 +1,7 @@
-const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+const SpeechRecognition = window.SpeechRecognition
+    || window.webkitSpeechRecognition;
 
-class Speech{
+class Speech {
   #isRecognize = true;
   #recognition;
 
@@ -24,12 +25,12 @@ class Speech{
     this.#recognition.start();
   }
 
-  stop(){
+  stop() {
     this.#isRecognize = false;
     this.#recognition.stop();
   }
 
-  speak(text){
+  speak(text) {
     const synth = window.speechSynthesis;
     const utterThis = new SpeechSynthesisUtterance(text);
     utterThis.pitch = 0.5;

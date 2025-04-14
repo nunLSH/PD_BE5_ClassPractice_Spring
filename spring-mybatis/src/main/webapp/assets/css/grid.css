@@ -1,28 +1,28 @@
-.con{
+.con {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.con-start{
+.con-start {
   display: flex;
   justify-content: start;
   align-items: center;
 }
 
-.con-around{
+.con-around {
   display: flex;
   justify-content: space-around;
   align-items: center;
 }
 
-.con-between{
+.con-between {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.con-end{
+.con-end {
   display: flex;
   justify-content: end;
   align-items: center;

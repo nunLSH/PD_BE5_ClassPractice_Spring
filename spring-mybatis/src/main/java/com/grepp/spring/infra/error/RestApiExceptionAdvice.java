@@ -18,7 +18,7 @@ public class RestApiExceptionAdvice {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ApiResponse<Map<String, String>>>
-    validatorHandler(MethodArgumentNotValidException ex){
+    validatorHandler(MethodArgumentNotValidException ex) {
         log.info(ex.getMessage(), ex);
 
         Map<String, String> errors = new LinkedHashMap<>();
@@ -30,21 +30,21 @@ public class RestApiExceptionAdvice {
 
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public ResponseEntity<ApiResponse<String>>
-    methodNotSupportedHandler(HttpRequestMethodNotSupportedException ex){
+    methodNotSupportedHandler(HttpRequestMethodNotSupportedException ex) {
         return ResponseEntity
             .badRequest()
             .body(ApiResponse.error(ResponseCode.BAD_REQUEST, ex.getMessage()));
     }
 
     @ExceptionHandler(CommonException.class)
-    public ResponseEntity<ApiResponse<String>> restApiExceptionHandler(CommonException ex){
+    public ResponseEntity<ApiResponse<String>> restApiExceptionHandler(CommonException ex) {
         return ResponseEntity
             .status(ex.code().status())
             .body(ApiResponse.error(ex.code()));
     }
 
     @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<ApiResponse<String>> runtimeExceptionHandler(RuntimeException ex){
+    public ResponseEntity<ApiResponse<String>> runtimeExceptionHandler(RuntimeException ex) {
         return ResponseEntity
             .internalServerError()
             .body(ApiResponse.error(ResponseCode.INTERNAL_SERVER_ERROR));

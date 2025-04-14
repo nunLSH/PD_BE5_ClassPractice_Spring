@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class WebExceptionAdvice {
 
     @ExceptionHandler(CommonException.class)
-    public String webExceptionHandler(CommonException ex, Model model){
+    public String webExceptionHandler(CommonException ex, Model model) {
         model.addAttribute("message", ex.code().message());
         return "error/redirect";
     }

@@ -9,7 +9,7 @@ const api = async coords => {
     units: 'metric'
   };
 
-  const url =  API_URL + new URLSearchParams(params).toString();
+  const url = API_URL + new URLSearchParams(params).toString();
   const response = await fetch(url);
   return response.json();
 }
