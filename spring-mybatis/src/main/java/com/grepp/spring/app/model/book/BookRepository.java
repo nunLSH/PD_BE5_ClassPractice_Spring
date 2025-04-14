@@ -40,4 +40,14 @@ public interface BookRepository {
     List<Book> selectByIf(
         @Param("search") String search,
         @Param("keyword") String keyword);
+
+    List<Book> selectByChooseWhen(
+        @Param("search") String search,
+        @Param("keyword") String keyword);
+
+    void bulkInsert(List<Book> books);
+
+    List<Book> selectDynamic(
+        @Param("searches") List<String> searches,
+        @Param("keyword") String keyword);
 }
