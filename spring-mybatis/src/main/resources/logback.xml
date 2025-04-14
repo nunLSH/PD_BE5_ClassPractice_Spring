@@ -16,15 +16,11 @@
     TRACE > DEBUG > INFO > WARN > ERROR > OFF
     설정한 로깅레벨 이상의 심각도를 지닌 로그 메시지만 출력
   -->
-  <logger additivity="false" level="INFO"
-    name="org.apache.ibatis.logging.jdbc.PreparedStatementLogger">
-    <appender-ref ref="CONSOLE"/>
-  </logger>
-
   <property name="LOG_PATTERN"
     value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"/>
 
-  <root level="debug">
+  <root level="DEBUG">
     <appender-ref ref="CONSOLE"/>
   </root>
+
 </configuration>
