@@ -6,22 +6,18 @@ import com.grepp.spring.app.model.member.dto.MemberInfo;
 import com.grepp.spring.app.model.member.dto.Principal;
 import com.grepp.spring.infra.error.exceptions.CommonException;
 import com.grepp.spring.infra.response.ResponseCode;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class MemberService {
+public class MemberService{
 
     private final MemberRepository memberRepository;
 
@@ -36,6 +32,7 @@ public class MemberService {
         MemberInfo memberInfo = new MemberInfo();
         memberInfo.setUserId(dto.getUserId());
         memberRepository.insertInfo(memberInfo);
+
     }
 
     public Principal signin(String userId, String password) {
@@ -51,5 +48,9 @@ public class MemberService {
             return Principal.ANONYMOUS;
 
         return new Principal(userId, List.of(Role.ROLE_USER), LocalDateTime.now());
+    }
+
+    public Boolean isDuplicatedId(String id) {
+        return memberRepository.existsMember(id);
     }
 }

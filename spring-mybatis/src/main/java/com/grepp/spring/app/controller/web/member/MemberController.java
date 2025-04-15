@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -75,6 +76,14 @@ public class MemberController {
         return "redirect:/";
     }
 
+    // NOTE cors
+    // cross origin resource sharing
+    // origin : protocol + host + port
+    // allowCredentials : 쿠키, 인증 헤더 허용
+    // allowMethods : cors 를 허용할 메소드 지정
+    // allowHeaders : cors 를 허용할 http 헤더 지정
+    //@CrossOrigin(origins = "http://localhost:63342", allowCredentials = "true")
+
     @GetMapping("info")
     public String allInfo(
         @SessionAttribute(name = "principal", required = false)
@@ -88,5 +97,4 @@ public class MemberController {
         redirectAttributes.addAttribute("error", "당신의 모든 개인정보입니다.");
         return "redirect:/";
     }
-
 }
