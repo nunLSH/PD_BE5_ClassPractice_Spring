@@ -1,5 +1,3 @@
-# NOTE init 02 data.sql : DB 초기화, 초기 데이터 설정
-
 insert into book(bk_idx, author, amount, category, title, created_at)
 values (1000, '김애란', '3', 'NOVEL', '비행운', '2023-03-06 3:02:40');
 insert into book(bk_idx, author, amount, category, title, created_at)
@@ -10,6 +8,46 @@ insert into book(bk_idx, author, amount, category, title, created_at)
 values (1003, '비트겐슈타인', '6', 'HUMANITY', '논리철학논고', '2025-04-06 3:02:40');
 insert into book(bk_idx, author, amount, category, title, created_at)
 values (1004, '황정은', '7', 'NOVEL', '디디의우산', '2025-04-06 3:02:40');
+insert into book(author, amount, category, title, created_at)
+values ('김애란', '3', 'NOVEL', '비행운', '2023-03-06 3:02:40');
+insert into book(author, amount, category, title, created_at)
+values ('조앤롤링', '4', 'NOVEL', '해리포터', '2023-04-06 3:02:40');
+insert into book(author, amount, category, title, created_at)
+values ('에리히프롬', '5', 'HUMANITY', '사랑의기술', '2023-03-06 3:02:40');
+insert into book(author, amount, category, title, created_at)
+values ('비트겐슈타인', '6', 'HUMANITY', '논리철학논고', '2025-04-06 3:02:40');
+insert into book(author, amount, category, title, created_at)
+values ('황정은', '7', 'NOVEL', '디디의우산', '2025-04-06 3:02:40');
+insert into book(author, amount, category, title, created_at)
+values ('김애란', '3', 'NOVEL', '비행운', '2023-03-06 3:02:40');
+insert into book(author, amount, category, title, created_at)
+values ('조앤롤링', '4', 'NOVEL', '해리포터', '2023-04-06 3:02:40');
+insert into book(author, amount, category, title, created_at)
+values ('에리히프롬', '5', 'HUMANITY', '사랑의기술', '2023-03-06 3:02:40');
+insert into book(author, amount, category, title, created_at)
+values ('비트겐슈타인', '6', 'HUMANITY', '논리철학논고', '2025-04-06 3:02:40');
+insert into book(author, amount, category, title, created_at)
+values ('황정은', '7', 'NOVEL', '디디의우산', '2025-04-06 3:02:40');
+insert into book(author, amount, category, title, created_at)
+values ('김애란', '3', 'NOVEL', '비행운', '2023-03-06 3:02:40');
+insert into book(author, amount, category, title, created_at)
+values ('조앤롤링', '4', 'NOVEL', '해리포터', '2023-04-06 3:02:40');
+insert into book(author, amount, category, title, created_at)
+values ('에리히프롬', '5', 'HUMANITY', '사랑의기술', '2023-03-06 3:02:40');
+insert into book(author, amount, category, title, created_at)
+values ('비트겐슈타인', '6', 'HUMANITY', '논리철학논고', '2025-04-06 3:02:40');
+insert into book(author, amount, category, title, created_at)
+values ('황정은', '7', 'NOVEL', '디디의우산', '2025-04-06 3:02:40');
+insert into book(author, amount, category, title, created_at)
+values ('김애란', '3', 'NOVEL', '비행운', '2023-03-06 3:02:40');
+insert into book(author, amount, category, title, created_at)
+values ('조앤롤링', '4', 'NOVEL', '해리포터', '2023-04-06 3:02:40');
+insert into book(author, amount, category, title, created_at)
+values ('에리히프롬', '5', 'HUMANITY', '사랑의기술', '2023-03-06 3:02:40');
+insert into book(author, amount, category, title, created_at)
+values ('비트겐슈타인', '6', 'HUMANITY', '논리철학논고', '2025-04-06 3:02:40');
+insert into book(author, amount, category, title, created_at)
+values ('황정은', '7', 'NOVEL', '디디의우산', '2025-04-06 3:02:40');
 
 insert into member(user_id, email, role, password, tel, created_at)
 values ('jpa', 'jpa@jpa.com', 'ROLE_USER', '1234', '010-0112-0119', '2023-03-06 3:02:40');
