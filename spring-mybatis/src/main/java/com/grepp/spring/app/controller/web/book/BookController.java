@@ -44,7 +44,7 @@ public class BookController {
 
     @GetMapping("list")
     public String list(Model model){
-        List<Book> books = bookService.findAll();
+        List<Book> books = bookService.findPaged(1, 5);
         model.addAttribute("books", books);
         return "book/book-list";
     }

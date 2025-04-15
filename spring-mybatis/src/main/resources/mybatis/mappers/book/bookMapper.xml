@@ -19,6 +19,10 @@
     select * from book
   </select>
 
+  <select id="selectPaged" resultMap="bookMap">
+    select * from book order by created_at desc limit #{start}, #{offset}
+  </select>
+
   <select id="selectImg" parameterType="int" resultType="BookImg">
     select * from book_img where bk_idx = #{bkIdx}
   </select>

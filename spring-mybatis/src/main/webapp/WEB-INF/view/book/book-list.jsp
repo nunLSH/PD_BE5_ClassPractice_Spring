@@ -10,10 +10,9 @@
 <%@include file="/WEB-INF/view/include/sidenav.jsp" %>
 <main class="container">
     <h4>Book List</h4>
-    <ul class="collection">
-        <c:forEach items="${books}" var="book" >
+    <ul class="collection book-list">
+        <c:forEach items="${books}" var="book">
             <li class="collection-item avatar">
-
                 <c:if test="${empty book.images}">
                     <img src="#" alt="thumbnail" class="circle">
                 </c:if>
@@ -25,16 +24,24 @@
                         </c:if>
                     </c:forEach>
                 </c:if>
-
                 <span class="title"><c:out value="${book.title}"/></span>
                 <p><c:out value="${book.author}"/></p>
                 <a href="#" class="secondary-content"><i class="material-icons">grade</i></a>
-
             </li>
         </c:forEach>
     </ul>
 </main>
-<%@include file="/WEB-INF/view/include/footer.jsp" %>
 
+<ul class="collection" id="bookListTemplate" style="display:none;">
+    <li class="collection-item avatar">
+        <img src="#" alt="thumbnail" class="circle thumbnail">
+        <span class="title"></span>
+        <p class="author"></p>
+        <a href="#" class="secondary-content"><i class="material-icons">grade</i></a>
+    </li>
+</ul>
+
+<%@include file="/WEB-INF/view/include/footer.jsp" %>
+<script src="${context}/assets/js/book-list.js" defer ></script>
 </body>
 </html>

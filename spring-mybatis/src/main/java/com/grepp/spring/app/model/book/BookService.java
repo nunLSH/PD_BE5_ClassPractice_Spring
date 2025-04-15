@@ -42,4 +42,9 @@ public class BookService {
     public List<Book> findAll() {
         return bookRepository.selectAll();
     }
+
+    public List<Book> findPaged(int page, int size) {
+        int start = (page-1) * size;
+        return bookRepository.selectPaged(start, size);
+    }
 }

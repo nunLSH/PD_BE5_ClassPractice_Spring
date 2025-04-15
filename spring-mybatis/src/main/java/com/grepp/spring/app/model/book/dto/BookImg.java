@@ -1,5 +1,4 @@
 package com.grepp.spring.app.model.book.dto;
-
 import com.grepp.spring.app.model.book.code.BookImgType;
 import com.grepp.spring.infra.util.file.FileDto;
 import java.time.LocalDateTime;
@@ -9,7 +8,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class BookImg {
-
     private Integer biIdx;
     private Integer bkIdx;
     private BookImgType type;
@@ -30,5 +28,4 @@ public class BookImg {
     public String getUrl(){
         return "/download/" + savePath + renameFileName;
     }
-
 }

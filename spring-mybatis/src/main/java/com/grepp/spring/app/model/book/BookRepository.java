@@ -17,6 +17,8 @@ public interface BookRepository {
 
     List<Book> selectAll();
 
+    List<Book> selectPaged(@Param("start") int start, @Param("offset") int offset);
+
     @Select("select * from book where bk_idx = #{bkIdx}")
     Optional<Book> selectById(Integer bkIdx);
 
