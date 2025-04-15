@@ -41,6 +41,8 @@
     </li>
 </ul>
 
+<span class="target" style="display:none;"></span>
+
 <%@include file="/WEB-INF/view/include/footer.jsp" %>
 <script src="${context}/assets/js/book-list.js" defer ></script>
 </body>

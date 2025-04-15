@@ -30,17 +30,17 @@
         <div class="row">
             <div class="input-field col s6">
                 <i class="material-icons prefix">mode_edit</i>
-                <form:textarea path="author" name="author" id="icon_prefix2" class="materialize-textarea"/>
+                <form:textarea path="author" name="author" id="icon_prefix3" class="materialize-textarea"/>
                 <form:errors path="author" />
-                <label for="icon_prefix2">Author</label>
+                <label for="icon_prefix3">Author</label>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s6">
                 <i class="material-icons prefix">mode_edit</i>
-                <form:textarea path="info" name="info" id="icon_prefix2" class="materialize-textarea"/>
+                <form:textarea path="info" name="info" id="icon_prefix4" class="materialize-textarea"/>
                 <form:errors path="info" />
-                <label for="icon_prefix2">Info</label>
+                <label for="icon_prefix4">Info</label>
             </div>
         </div>
         <div class="row">
