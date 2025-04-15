@@ -10,6 +10,19 @@
 -->
 <mapper namespace="com.grepp.spring.app.model.book.BookRepository">
 
+  <resultMap id="bookMap" type="Book">
+    <id property="bkIdx" column="bk_idx"/>
+    <collection property="images" column="bk_idx" ofType="BookImg" select="selectImg" />
+  </resultMap>
+
+  <select id="selectAll" resultMap="bookMap">
+    select * from book
+  </select>
+
+  <select id="selectImg" parameterType="int" resultType="BookImg">
+    select * from book_img where bk_idx = #{bkIdx}
+  </select>
+
   <select id="recentRentBook">
     select * from book b
     join rent_book rb using(bk_idx)

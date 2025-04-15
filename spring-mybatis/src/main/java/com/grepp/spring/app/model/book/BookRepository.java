@@ -1,6 +1,7 @@
 package com.grepp.spring.app.model.book;
 
 import com.grepp.spring.app.model.book.dto.Book;
+import com.grepp.spring.app.model.book.dto.BookImg;
 import java.util.List;
 import java.util.Optional;
 import org.apache.ibatis.annotations.Delete;
@@ -14,7 +15,6 @@ import org.apache.ibatis.annotations.Update;
 @Mapper
 public interface BookRepository {
 
-    @Select("select * from book")
     List<Book> selectAll();
 
     @Select("select * from book where bk_idx = #{bkIdx}")
@@ -50,4 +50,8 @@ public interface BookRepository {
     List<Book> selectDynamic(
         @Param("searches") List<String> searches,
         @Param("keyword") String keyword);
+
+    @Select("insert into book_img (BK_IDX, TYPE, ORIGIN_FILE_NAME, RENAME_FILE_NAME, SAVE_PATH) "
+        + "values(#{bkIdx}, #{type}, #{originFileName}, #{renameFileName}, #{savePath})")
+    void insertImage(BookImg bookImg);
 }
