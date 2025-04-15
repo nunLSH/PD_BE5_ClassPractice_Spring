@@ -3,10 +3,18 @@ package com.grepp.spring.app.model.member;
 import com.grepp.spring.app.model.member.code.Role;
 import com.grepp.spring.app.model.member.dto.Member;
 import com.grepp.spring.app.model.member.dto.MemberInfo;
+import com.grepp.spring.app.model.member.dto.Principal;
 import com.grepp.spring.infra.error.exceptions.CommonException;
 import com.grepp.spring.infra.response.ResponseCode;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,8 +35,21 @@ public class MemberService {
 
         MemberInfo memberInfo = new MemberInfo();
         memberInfo.setUserId(dto.getUserId());
-
         memberRepository.insertInfo(memberInfo);
-        throw new RuntimeException("test Error");
+    }
+
+    public Principal signin(String userId, String password) {
+
+        Optional<Member> optional = memberRepository.selectById(userId);
+
+        if(optional.isEmpty())
+            return Principal.ANONYMOUS;
+
+        Member member = optional.get();
+
+        if(!member.getPassword().equals(password))
+            return Principal.ANONYMOUS;
+
+        return new Principal(userId, List.of(Role.ROLE_USER), LocalDateTime.now());
     }
 }

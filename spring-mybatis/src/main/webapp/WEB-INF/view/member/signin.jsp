@@ -9,7 +9,10 @@
 <%@include file="/WEB-INF/view/include/header.jsp" %>
 <%@include file="/WEB-INF/view/include/sidenav.jsp" %>
 <main class="container">
-    <form:form modelAttribute="urlEncodedForm" class="col s12" action="/form" method="post">
+    <c:if test="${not empty param.error}">
+        <div class="card-panel red lighten-2 text-white">아이디나 비밀번호를 확인하세요</div>
+    </c:if>
+    <form:form modelAttribute="signinForm" class="col s12" action="/member/signin" method="post">
         <div class="row">
             <div class="input-field col s7 ">
                 <i class="material-icons prefix">account_circle</i>

@@ -6,7 +6,7 @@
             <ul id="nav-mobile" class="right hide-on-med-and-down grey-text">
                 <c:choose>
                     <c:when test="${empty principal or principal eq Principal.ANONYMOUS}">
-                        <li><a href="/member/login" class="grey-text">sign in</a></li>
+                        <li><a href="/member/signin" class="grey-text">sign in</a></li>
                         <li><a href="/member/signup" class="grey-text">sign up</a></li>
                     </c:when>
                     <c:otherwise>
