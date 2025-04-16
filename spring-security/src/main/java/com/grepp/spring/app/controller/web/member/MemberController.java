@@ -3,19 +3,16 @@ package com.grepp.spring.app.controller.web.member;
 import com.grepp.spring.app.controller.web.member.form.SigninForm;
 import com.grepp.spring.app.controller.web.member.form.SignupForm;
 import com.grepp.spring.app.model.member.MemberService;
-import com.grepp.spring.app.model.member.code.Role;
-import com.grepp.spring.app.model.member.dto.Member;
+import com.grepp.spring.app.model.auth.code.Role;
 import com.grepp.spring.app.model.member.dto.Principal;
 import com.grepp.spring.infra.error.exceptions.CommonException;
 import com.grepp.spring.infra.response.ResponseCode;
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -52,28 +49,6 @@ public class MemberController {
     @GetMapping("signin")
     public String signin(SigninForm form){
         return "member/signin";
-    }
-
-    @PostMapping("signin")
-    public String signin(
-        @Valid SigninForm form,
-        BindingResult bindingResult,
-        HttpSession session,
-        RedirectAttributes redirectAttributes){
-
-        if(bindingResult.hasErrors()){
-            return "member/signin";
-        }
-
-        Principal principal = memberService.signin(form.getUserId(), form.getPassword());
-
-        if(principal.equals(Principal.ANONYMOUS)){
-            redirectAttributes.addAttribute("error", null);
-            return "redirect:/member/signin";
-        }
-
-        session.setAttribute("principal", principal);
-        return "redirect:/";
     }
 
     // NOTE cors
