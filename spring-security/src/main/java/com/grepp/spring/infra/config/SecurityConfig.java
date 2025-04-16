@@ -27,7 +27,11 @@ public class SecurityConfig {
         http
             .authorizeHttpRequests(
                 (requests) -> requests
-                    .requestMatchers(GET, "/member/signup").permitAll()
+                    .requestMatchers(GET, "/", "/assets/**", "/download/**").permitAll()
+                    .requestMatchers(GET, "/book/list").permitAll()
+                    .requestMatchers(GET, "/api/member/exists/*").permitAll()
+                    .requestMatchers(GET, "/member/signup", "/admin/signup").permitAll()
+                    .requestMatchers("/admin/**", "/api/admin/**").hasAuthority("ROLE_ADMIN")
                     .requestMatchers(POST, "/member/signin", "/member/signup").permitAll()
                     .anyRequest().authenticated()
             )
