@@ -1,4 +1,4 @@
-package com.grepp.spring.app.controller.web.member.form;
+package com.grepp.spring.form;
 
 import com.grepp.spring.app.model.member.dto.Member;
 import jakarta.validation.constraints.Email;

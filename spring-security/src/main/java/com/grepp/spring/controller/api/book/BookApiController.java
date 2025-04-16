@@ -1,7 +1,7 @@
-package com.grepp.spring.app.controller.api.book;
+package com.grepp.spring.controller.api.book;
 
-import com.grepp.spring.app.controller.api.book.form.BookListForm;
-import com.grepp.spring.app.controller.api.book.payload.BookListPayload;
+import com.grepp.spring.controller.api.book.form.BookListForm;
+import com.grepp.spring.controller.api.book.payload.BookListPayload;
 import com.grepp.spring.app.model.book.BookService;
 import com.grepp.spring.app.model.book.dto.Book;
 import com.grepp.spring.infra.response.ApiResponse;

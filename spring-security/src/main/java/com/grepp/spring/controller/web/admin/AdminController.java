@@ -1,6 +1,6 @@
-package com.grepp.spring.app.controller.web.admin;
+package com.grepp.spring.controller.web.admin;
 
-import com.grepp.spring.app.controller.web.member.form.SignupForm;
+import com.grepp.spring.form.SignupForm;
 import com.grepp.spring.app.model.auth.code.Role;
 import com.grepp.spring.app.model.member.MemberService;
 import jakarta.validation.Valid;

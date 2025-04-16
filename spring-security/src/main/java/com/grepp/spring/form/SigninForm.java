@@ -1,4 +1,4 @@
-package com.grepp.spring.app.controller.web.member.form;
+package com.grepp.spring.form;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

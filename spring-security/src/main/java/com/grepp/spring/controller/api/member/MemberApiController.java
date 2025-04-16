@@ -1,4 +1,4 @@
-package com.grepp.spring.app.controller.api.member;
+package com.grepp.spring.controller.api.member;
 
 import com.grepp.spring.app.model.member.MemberService;
 import com.grepp.spring.infra.response.ApiResponse;

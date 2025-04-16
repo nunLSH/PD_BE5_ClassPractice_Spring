@@ -1,7 +1,6 @@
 package com.grepp.spring.app.model.auth.domain;
 
 import com.grepp.spring.app.model.member.dto.Member;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import org.springframework.security.core.GrantedAuthority;
