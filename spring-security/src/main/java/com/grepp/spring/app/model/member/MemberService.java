@@ -1,6 +1,6 @@
 package com.grepp.spring.app.model.member;
 
-import com.grepp.spring.app.model.member.code.Role;
+import com.grepp.spring.app.model.auth.code.Role;
 import com.grepp.spring.app.model.member.dto.Member;
 import com.grepp.spring.app.model.member.dto.MemberInfo;
 import com.grepp.spring.app.model.member.dto.Principal;
@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,12 +20,16 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class MemberService{
 
+    private final PasswordEncoder passwordEncoder;
     private final MemberRepository memberRepository;
 
     @Transactional
     public void signup(Member dto) {
         if(memberRepository.existsMember(dto.getUserId()))
             throw new CommonException(ResponseCode.BAD_REQUEST);
+
+        String encodedPassword = passwordEncoder.encode(dto.getPassword());
+        dto.setPassword(encodedPassword);
 
         dto.setRole(Role.ROLE_USER);
         memberRepository.insert(dto);
