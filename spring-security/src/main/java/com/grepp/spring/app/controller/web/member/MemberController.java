@@ -1,7 +1,7 @@
-package com.grepp.spring;
+package com.grepp.spring.app.controller.web.member;
 
-import com.grepp.spring.form.SigninForm;
-import com.grepp.spring.form.SignupForm;
+import com.grepp.spring.app.controller.web.member.form.SigninForm;
+import com.grepp.spring.app.controller.web.member.form.SignupForm;
 import com.grepp.spring.app.model.member.MemberService;
 import com.grepp.spring.app.model.auth.code.Role;
 import com.grepp.spring.app.model.member.dto.Member;

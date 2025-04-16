@@ -1,4 +1,4 @@
-package com.grepp.spring.controller.api.book.form;
+package com.grepp.spring.app.controller.api.book.form;
 
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;

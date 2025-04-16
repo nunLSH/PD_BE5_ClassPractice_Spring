@@ -1,4 +1,4 @@
-package com.grepp.spring.controller.api.book.payload;
+package com.grepp.spring.app.controller.api.book.payload;
 
 import com.grepp.spring.app.model.book.code.BookImgType;
 import com.grepp.spring.app.model.book.dto.Book;

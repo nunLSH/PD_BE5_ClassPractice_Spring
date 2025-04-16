@@ -1,6 +1,6 @@
-package com.grepp.spring.controller.web.book;
+package com.grepp.spring.app.controller.web.book;
 
-import com.grepp.spring.controller.web.book.form.BookRegistForm;
+import com.grepp.spring.app.controller.web.book.form.BookRegistForm;
 import com.grepp.spring.app.model.book.BookService;
 import com.grepp.spring.app.model.book.code.Category;
 import com.grepp.spring.app.model.book.dto.Book;
