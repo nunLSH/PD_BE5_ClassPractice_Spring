@@ -5,10 +5,30 @@ CREATE TABLE `MEMBER`
     `USER_ID`    VARCHAR(36) PRIMARY KEY COMMENT '회원 아이디',
     `PASSWORD`   VARCHAR(70) NOT NULL COMMENT '회원 비밀번호',
     `EMAIL`      VARCHAR(50) NOT NULL COMMENT '회원 이메일',
-    `ROLE`       CHAR(50)    NULL     DEFAULT 'ROLE_USER' COMMENT '회원 등급',
+    `ROLE`      CHAR(50)    NULL     DEFAULT 'ROLE_USER' COMMENT '회원 등급',
     `TEL`        VARCHAR(15) NULL COMMENT '회원 전화번호',
     `CREATED_AT` timestamp   NOT NULL DEFAULT now() COMMENT '가입일시',
-    `ACTIVATED`  bool        NOT NULL DEFAULT true COMMENT '탈퇴여부'
+    `ACTIVATED`  bool        NOT NULL DEFAULT true COMMENT '활성여부'
+);
+
+DROP TABLE IF EXISTS `TEAM`;
+CREATE TABLE `TEAM`
+(
+    `TEAM_ID` int  NOT NULL auto_increment PRIMARY KEY COMMENT '팀아이디',
+    `NAME`  VARCHAR(255) NOT NULL ,
+    `CREATED_AT` timestamp   NOT NULL DEFAULT now() COMMENT '등록일',
+    `ACTIVATED`  bool        NOT NULL DEFAULT true COMMENT '활성여부'
+);
+
+DROP TABLE IF EXISTS `TEAM_MEMBER`;
+CREATE TABLE `TEAM_MEMBER`
+(
+    `TM_ID` int  NOT NULL auto_increment PRIMARY KEY,
+    `TEAM_ID` int  NOT NULL COMMENT '팀아이디',
+    `USER_ID`  VARCHAR(255) NOT NULL ,
+    `ROLE`      CHAR(50)    NULL,
+    `CREATED_AT` timestamp   NOT NULL DEFAULT now() COMMENT '작가 등록일',
+    `ACTIVATED`  bool        NOT NULL DEFAULT true COMMENT '활성여부'
 );
 
 DROP TABLE IF EXISTS `BOOK`;
@@ -47,8 +67,8 @@ CREATE TABLE `BOOK_IMG`
     `BI_IDX`           int          NOT NULL auto_increment PRIMARY KEY COMMENT '파일번호',
     `BK_IDX`           int          NOT NULL,
     `TYPE`             VARCHAR(36)  NOT NULL,
-    `ORIGIN_FILE_NAME` VARCHAR(255)  NOT NULL COMMENT '원본파일명',
-    `RENAME_FILE_NAME` VARCHAR(255)  NOT NULL COMMENT '저장파일명',
+    `ORIGIN_FILE_NAME` VARCHAR(36)  NOT NULL COMMENT '원본파일명',
+    `RENAME_FILE_NAME` VARCHAR(36)  NOT NULL COMMENT '저장파일명',
     `SAVE_PATH`        VARCHAR(255) NOT NULL COMMENT '저장경로',
     `CREATED_AT`       timestamp    NULL     DEFAULT now() COMMENT '파일등록일자',
     `ACTIVATED`        boolean      NOT NULL DEFAULT true
