@@ -28,6 +28,14 @@
                 <form:errors path="password" cssClass="helper-text"/>
             </div>
         </div>
+        <div class="row">
+            <p>
+                <label>
+                    <input type="checkbox" name="remember-me" />
+                    <span>remember-me</span>
+                </label>
+            </p>
+        </div>
         <button class="btn waves-effect waves-light offset-s1" type="submit" name="action">
             Submit
             <i class="material-icons right">send</i>

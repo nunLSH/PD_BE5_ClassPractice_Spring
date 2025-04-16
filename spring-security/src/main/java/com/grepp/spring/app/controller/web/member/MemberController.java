@@ -4,12 +4,14 @@ import com.grepp.spring.app.controller.web.member.form.SigninForm;
 import com.grepp.spring.app.controller.web.member.form.SignupForm;
 import com.grepp.spring.app.model.member.MemberService;
 import com.grepp.spring.app.model.auth.code.Role;
+import com.grepp.spring.app.model.member.dto.Member;
 import com.grepp.spring.app.model.member.dto.Principal;
 import com.grepp.spring.infra.error.exceptions.CommonException;
 import com.grepp.spring.infra.response.ResponseCode;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -42,13 +44,22 @@ public class MemberController {
             return "member/signup";
         }
 
-        memberService.signup(form.toDto());
+        memberService.signup(form.toDto(), Role.ROLE_USER);
         return "redirect:/";
     }
 
     @GetMapping("signin")
     public String signin(SigninForm form){
         return "member/signin";
+    }
+
+    @GetMapping("mypage")
+    public String mypage(Authentication authentication, Model model){
+        log.info("authentication : {}", authentication);
+        String userId = authentication.getName();
+        Member member = memberService.findById(userId);
+        model.addAttribute("member", member);
+        return "member/mypage";
     }
 
     // NOTE cors

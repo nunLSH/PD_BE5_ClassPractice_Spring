@@ -24,14 +24,14 @@ public class MemberService{
     private final MemberRepository memberRepository;
 
     @Transactional
-    public void signup(Member dto) {
+    public void signup(Member dto, Role role) {
         if(memberRepository.existsMember(dto.getUserId()))
             throw new CommonException(ResponseCode.BAD_REQUEST);
 
         String encodedPassword = passwordEncoder.encode(dto.getPassword());
         dto.setPassword(encodedPassword);
 
-        dto.setRole(Role.ROLE_USER);
+        dto.setRole(role);
         memberRepository.insert(dto);
 
         MemberInfo memberInfo = new MemberInfo();
@@ -57,5 +57,10 @@ public class MemberService{
 
     public Boolean isDuplicatedId(String id) {
         return memberRepository.existsMember(id);
+    }
+
+    public Member findById(String userId) {
+        return memberRepository.selectById(userId)
+            .orElseThrow(() -> new CommonException(ResponseCode.BAD_REQUEST));
     }
 }
