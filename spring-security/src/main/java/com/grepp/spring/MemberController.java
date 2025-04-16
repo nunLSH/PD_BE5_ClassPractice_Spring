@@ -1,7 +1,7 @@
-package com.grepp.spring.app.controller.web.member;
+package com.grepp.spring;
 
-import com.grepp.spring.app.controller.web.member.form.SigninForm;
-import com.grepp.spring.app.controller.web.member.form.SignupForm;
+import com.grepp.spring.form.SigninForm;
+import com.grepp.spring.form.SignupForm;
 import com.grepp.spring.app.model.member.MemberService;
 import com.grepp.spring.app.model.auth.code.Role;
 import com.grepp.spring.app.model.member.dto.Member;
@@ -11,11 +11,13 @@ import com.grepp.spring.infra.response.ResponseCode;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
@@ -58,6 +60,14 @@ public class MemberController {
         log.info("authentication : {}", authentication);
         String userId = authentication.getName();
         Member member = memberService.findById(userId);
+        model.addAttribute("member", member);
+        return "member/mypage";
+    }
+
+    @PreAuthorize("hasAuthority('ROLE_ADMIN') or authentication.name == #id")
+    @GetMapping("{id}")
+    public String get(@PathVariable String id, Model model){
+        Member member = memberService.findById(id);
         model.addAttribute("member", member);
         return "member/mypage";
     }

@@ -3,6 +3,7 @@ package com.grepp.spring.infra.config;
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -17,18 +18,14 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity
+@EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
     @Value("${remember-me.key}")
@@ -42,7 +39,6 @@ public class SecurityConfig {
 
     @Bean
     public AuthenticationSuccessHandler successHandler(){
-
         return new AuthenticationSuccessHandler() {
             @Override
             public void onAuthenticationSuccess(HttpServletRequest request,
@@ -51,7 +47,8 @@ public class SecurityConfig {
 
                 boolean isAdmin = authentication.getAuthorities()
                     .stream()
-                    .anyMatch(authority -> authority.getAuthority().equals("ROLE_ADMIN"));
+                    .anyMatch(authority ->
+                        authority.getAuthority().equals("ROLE_ADMIN"));
 
                 if(isAdmin){
                     response.sendRedirect("/admin");
@@ -61,6 +58,7 @@ public class SecurityConfig {
                 response.sendRedirect("/");
             }
         };
+
     }
 
     @Bean
@@ -87,7 +85,14 @@ public class SecurityConfig {
                 .successHandler(successHandler())
                 .permitAll()
             )
-            .rememberMe(rememberMe -> rememberMe.key("uniqueAndSecret"))
+            .rememberMe(rememberMe -> rememberMe.key(rememberMeKey))
+            .exceptionHandling(ex -> {
+                ex.accessDeniedHandler((request, response, accessDeniedException) -> {
+                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/view/error/redirect.jsp");
+                    request.setAttribute("message", "접근 권한이 없습니다.");
+                    requestDispatcher.forward(request, response);
+                });
+            })
             .logout(LogoutConfigurer::permitAll);
 
         return http.build();
