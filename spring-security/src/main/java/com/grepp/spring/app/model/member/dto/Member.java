@@ -1,6 +1,6 @@
 package com.grepp.spring.app.model.member.dto;
 
-import com.grepp.spring.app.model.member.code.Role;
+import com.grepp.spring.app.model.auth.code.Role;
 import lombok.Data;
 import org.apache.ibatis.type.Alias;
 
