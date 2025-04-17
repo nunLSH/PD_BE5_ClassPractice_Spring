@@ -3,39 +3,103 @@
 <head>
   <meta charset="UTF-8">
   <title>Title</title>
+  <th:block th:replace="~{fragments :: frg_static}" />
 </head>
-<body th:with="subject='thymeleaf'">
+<body th:with="subject='thymleaf'">
 
-<h1>Thymeleaf 공부하기</h1>
-<h2>1. 변수 선언 및 출력</h2>
-<pre>
-    변수 선언 : th:with
-    변수 score : 부모 요소에서 선언된 변수를 후손 요소에서 사용 가능
-    변수 출력 : ${}
-    문자열 템플릿 : |${변수} + 문자열 리터럴|
+<th:block th:replace="~{fragments :: frg_header}" />
+<th:block th:replace="~{fragments :: frg_sidenav}" />
+
+<main class="container">
+  <h1>Thymeleaf 공부하기</h1>
+  <h2>1. 변수 선언 및 출력</h2>
+  <pre>
+    변수 선언   : th:with
+    변수 scope  : 부모 요소에서 선언된 변수를 후손 요소에서 사용 가능
+    변수 출력   : ${}
+    문자열 템플릿 : |${변수} 문자열 리터럴|
   </pre>
 
-<div th:text="${subject}">타임리프 적용 전 보이는 텍스트 입니다.</div>
+  <div th:text="|${subject} 배우기|">타임리프 적용 전 보이는 텍스트 입니다.</div>
 
-<h2>2. inline 표현식</h2>
-<div>[[${subject}]]</div>
-<div>[[${subject}]] 배우기</div>
+  <h2>2. inline 표현식</h2>
+  <div>[[${subject}]]</div>
+  <div>[[${subject}]] 배우기</div>
 
-<h2>3. 선택 변수 표현식</h2>
-<ol th:object="${example}">
-  <li th:text="*{name}"></li>
-  <li th:text="*{age}"></li>
-  <li th:text="*{subject}"></li>
-  <li th:text="*{score}"></li>
-  <li th:text="${example.score}"></li>
-</ol>
+  <h2>3. 선택 변수 표현식</h2>
+  <ol th:object="${example}">
+    <li th:text="*{name}"></li>
+    <li th:text="*{age}"></li>
+    <li th:text="*{subject}"></li>
+    <li th:text="*{score}"></li>
+    <li th:text="${example.score}"></li>
+  </ol>
 
-<h2>4. 링크 표현식 @{}</h2>
-<pre>
-  1. context path 를 자동으로 작성
-  2. url queryString 을 편하게 작성
-</pre>
-<a th:href="@{/}">welcome page로 이동</a>
+  <h2>4. 링크 표현식 @{}</h2>
+  <pre>
+    1. context path 를 자동으로 작성
+    2. url queryString 을 편하게 작성
+  </pre>
+  <a th:href="@{/}" >welcome page 로 이동</a><br>
+  <a th:href="@{https://www.naver.com(name=grepp, age=15)}">네이버로 이동</a>
+  <a th:href="@{https://www.naver.com(name=${subject})}">네이버로 이동</a>
+
+  <h2>5. unescape</h2>
+  <pre>
+    th:utext
+  </pre>
+  <p th:text="${xss}"></p>
+  <!--  <p th:utext="${xss}"></p>-->
+
+  <h2>6. th:attr</h2>
+  <div style="background-color: yellow"
+       th:attr="style=|background-color:${attr.backgroundColor}|">
+    th:attr</div>
+
+  <div style="background-color: yellow"
+       th:attrappend="style=|; color:${attr.color}|">
+    th:attr</div>
+
+  <div style="background-color: yellow"
+       th:attrprepend="style=|color:${attr.color}; |">
+    th:attr</div>
+
+  <h2>7. 조건문</h2>
+  <h3>if / unless</h3>
+  <p th:if="${example.score < 90} " th:text="|결과: 합격|">과연 결과는?</p>
+  <p th:if="${example.score >= 90} ">결과 : 불합격</p>
+
+  <h2>8. 반복문, switch case</h2>
+  <ul>
+    <li th:each="key, status : ${devScore.keySet()}"
+        th:switch="${devScore.get(key)/10}">
+
+      [[${key}]] : [[${devScore.get(key)}]]
+
+      <span th:case="${10}">(A++)</span>
+      <span th:case="${9}">(A)</span>
+      <span th:case="${8}">(B+)</span>
+      <span th:case="${7}">(B)</span>
+      <span th:case="${6}">(C+)</span>
+      <span th:case="${6}">(C)</span>
+      <span th:case="*">(불합격)</span>
+    </li>
+  </ul>
+
+  <h2>9. 원하는 횟수만큼 반복</h2>
+  <div th:each="e, status : ${#numbers.sequence(0,5)}">
+    <span th:text="|index : ${status.index}, |"></span>
+    <span th:text="|count : ${status.count}, |"></span>
+    <span th:text="|size : ${status.size}, |"></span>
+    <span th:text="|current : ${status.current}, |"></span>
+    <span th:text="|even : ${status.even}, |"></span>
+    <span th:text="|odd : ${status.odd}, |"></span>
+    <span th:text="|first : ${status.first}, |"></span>
+    <span th:text="|last : ${status.last}, |"></span>
+  </div>
+</main>
+
+<th:block th:replace="~{fragments :: frg_footer}" />
 
 </body>
 </html>
