@@ -4,12 +4,13 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import java.nio.file.LinkOption;
 import java.time.LocalDateTime;
 import lombok.Data;
+import org.hibernate.annotations.DynamicInsert;
 
 @Data
 @Entity
+@DynamicInsert
 public class Book {
     @Id
     @GeneratedValue
