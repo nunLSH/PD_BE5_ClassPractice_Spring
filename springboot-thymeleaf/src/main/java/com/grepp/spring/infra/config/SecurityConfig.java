@@ -64,6 +64,17 @@ public class SecurityConfig {
     }
 
     @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+            .authorizeHttpRequests(
+                (requests) -> requests
+                    .anyRequest().permitAll()
+            )
+            .logout(LogoutConfigurer::permitAll);
+        return http.build();
+    }
+
+    @Bean
     public UserDetailsService userDetailsService() {
         UserDetails user =
             User.withDefaultPasswordEncoder()
