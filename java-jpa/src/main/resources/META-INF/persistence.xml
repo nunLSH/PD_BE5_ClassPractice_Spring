@@ -21,7 +21,7 @@
            drop : 테이블 삭제
            none : ddl off -->
       <property name="hibernate.physical_naming_strategy" value="org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy"/>
-      <property name="hibernate.hbm2ddl.auto" value="create"/>
+      <property name="hibernate.hbm2ddl.auto" value="none"/>
       <property name="hibernate.show_sql" value="true"/>
       <property name="hibernate.format_sql" value="true"/>
     </properties>
