@@ -66,15 +66,16 @@ public class SecurityConfig {
 
         // * : 1depth 아래 모든 경로
         // ** : 모든 depth 의 모든 경로
+        // Security Config 에는 인증과 관련된 설정만 지정 (PermitAll or Authenticated)
         http
             .authorizeHttpRequests(
                 (requests) -> requests
                     .requestMatchers(GET, "/", "/assets/**", "/download/**").permitAll()
                     .requestMatchers(GET, "/book/list").permitAll()
                     .requestMatchers(GET, "/api/member/exists/*").permitAll()
-                    .requestMatchers(GET, "/member/signup").anonymous()
-                    .requestMatchers(POST, "/member/signin", "/member/signup").anonymous()
-                    .requestMatchers("/admin/**", "/api/admin/**").hasAuthority("ROLE_ADMIN")
+                    .requestMatchers(GET, "/member/signup").permitAll()
+                    .requestMatchers(GET, "/member/signin").permitAll()
+                    .requestMatchers(POST, "/member/signin", "/member/signup").permitAll()
                     .anyRequest().authenticated()
             )
             .formLogin((form) -> form
@@ -86,13 +87,6 @@ public class SecurityConfig {
                 .permitAll()
             )
             .rememberMe(rememberMe -> rememberMe.key(rememberMeKey))
-            .exceptionHandling(ex -> {
-                ex.accessDeniedHandler((request, response, accessDeniedException) -> {
-                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/view/error/redirect.jsp");
-                    request.setAttribute("message", "접근 권한이 없습니다.");
-                    requestDispatcher.forward(request, response);
-                });
-            })
             .logout(LogoutConfigurer::permitAll);
 
         return http.build();

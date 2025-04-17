@@ -6,7 +6,10 @@ import com.grepp.spring.infra.response.ResponseCode;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authorization.AuthorizationDeniedException;
+import org.springframework.ui.Model;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -41,6 +44,13 @@ public class RestApiExceptionAdvice {
         return ResponseEntity
             .status(ex.code().status())
             .body(ApiResponse.error(ex.code()));
+    }
+
+    @ExceptionHandler(AuthorizationDeniedException.class)
+    public ResponseEntity<ApiResponse<String>> authorizationDeniedHandler(AuthorizationDeniedException ex){
+        return ResponseEntity
+            .status(HttpStatus.UNAUTHORIZED)
+            .body(ApiResponse.error(ResponseCode.UNAUTHORIZED));
     }
 
     @ExceptionHandler(RuntimeException.class)
