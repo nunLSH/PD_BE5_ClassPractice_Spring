@@ -43,4 +43,9 @@ public class RentBook {
             ", book=" + book +
             '}';
     }
+
+    public void unlink() {
+        this.rent.removeRentBook(this.rbIdx);
+        this.rent = null;
+    }
 }

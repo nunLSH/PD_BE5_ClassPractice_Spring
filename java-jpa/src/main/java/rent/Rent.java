@@ -11,9 +11,6 @@ import jakarta.persistence.OneToMany;
 import java.time.LocalDateTime;
 import java.util.List;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
 import member.Member;
 
 @Data
@@ -41,5 +38,10 @@ public class Rent {
 
     public void addRentBook(RentBook rentBook) {
         rentBooks.add(rentBook);
+    }
+
+    public void removeRentBook(long rbIdx) {
+        rentBooks.removeIf( e -> e.getRbIdx() == rbIdx );
+        System.out.println(rentBooks);
     }
 }
