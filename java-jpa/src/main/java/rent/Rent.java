@@ -7,6 +7,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedAttributeNode;
+import jakarta.persistence.NamedEntityGraph;
+import jakarta.persistence.NamedSubgraph;
 import jakarta.persistence.OneToMany;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -15,6 +18,20 @@ import member.Member;
 
 @Data
 @Entity
+@NamedEntityGraph(
+    name = "rentEntityGraph",
+    attributeNodes = {
+        @NamedAttributeNode("rentBooks"), @NamedAttributeNode("member")
+    },
+    subgraphs = {
+        @NamedSubgraph(
+            name = "rentBooks",
+            attributeNodes = {
+                @NamedAttributeNode("book")
+            }
+        )
+    }
+)
 public class Rent {
     @Id
     @GeneratedValue
