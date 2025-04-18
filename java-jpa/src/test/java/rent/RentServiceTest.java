@@ -1,11 +1,9 @@
 package rent;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
-class RentRepositoryTest {
+class RentServiceTest {
 
     private final RentService rentService = new RentService();
     private final RentRepository rentRepository = new RentRepository();
@@ -18,6 +16,11 @@ class RentRepositoryTest {
     @Test
     public void addRentBook(){
         rentService.addRentBook("test", 52L, 1001L);
+    }
+
+    @Test
+    public void removeRent(){
+        rentService.removeRent(52L);
     }
 
 }
