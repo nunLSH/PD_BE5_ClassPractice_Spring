@@ -23,4 +23,14 @@ class RentServiceTest {
         rentService.removeRent(52L);
     }
 
+    @Test
+    public void removeRentBook(){
+        rentService.removeRentBook(200009);
+    }
+
+    @Test
+    public void removeRentBookWithRent(){
+        rentService.removeRentBookWithRent(100001, 200008);
+    }
+
 }

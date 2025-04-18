@@ -91,4 +91,36 @@ public class RentService {
         }
     }
 
+    public void removeRentBook(long rbIdx){
+        EntityManager em = template.createEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        try{
+            tx.begin();
+            RentBook rentBook = em.find(RentBook.class, rbIdx);
+            rentBook.unlink();
+            tx.commit();
+        } catch (Exception e){
+            e.printStackTrace();
+            tx.rollback();
+        } finally {
+            em.close();
+        }
+    }
+
+    public void removeRentBookWithRent(long rentId, long rbIdx){
+        EntityManager em = template.createEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        try{
+            tx.begin();
+            Rent rent = em.find(Rent.class, rentId);
+            rent.removeRentBook(rbIdx);
+            tx.commit();
+        } catch (Exception e){
+            e.printStackTrace();
+            tx.rollback();
+        } finally {
+            em.close();
+        }
+    }
+
 }
