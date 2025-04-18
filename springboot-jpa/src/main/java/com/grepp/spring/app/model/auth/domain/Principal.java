@@ -1,6 +1,6 @@
 package com.grepp.spring.app.model.auth.domain;
 
-import com.grepp.spring.app.model.member.dto.Member;
+import com.grepp.spring.app.model.member.entity.Member;
 import java.util.Collection;
 import java.util.List;
 import org.springframework.security.core.GrantedAuthority;
