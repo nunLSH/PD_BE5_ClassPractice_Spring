@@ -14,6 +14,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,10 +52,8 @@ public class BookService {
                    .toList();
     }
     
-    public List<BookDto> findPaged(Pageable pageable) {
-        int start = (pageable-1) * size;
-        return bookRepository.findAll()
-                   .stream().map(e -> mapper.map(e, BookDto.class))
-                   .toList();
+    public Page<BookDto> findPaged(Pageable pageable) {
+        return bookRepository.findPaged(pageable)
+                   .map(e -> mapper.map(e, BookDto.class));
     }
 }

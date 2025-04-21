@@ -19,15 +19,5 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("api/book")
 @RequiredArgsConstructor
 public class BookApiController {
-    
     private final BookService bookService;
-    
-    @GetMapping("list")
-    public ResponseEntity<ApiResponse<BookListResponse>> bookList(
-        @Valid BookListRequest form
-    ){
-        List<BookDto> bookDtos = bookService.findPaged(form.getPage(), form.getSize());
-        BookListResponse payload = BookListResponse.fromDtoList(bookDtos);
-        return ResponseEntity.ok(ApiResponse.success(payload));
-    }
 }
