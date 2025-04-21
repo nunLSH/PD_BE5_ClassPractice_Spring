@@ -1,6 +1,10 @@
 package com.grepp.spring.test;
 
+import com.grepp.spring.app.model.rent.code.RentState;
 import com.grepp.spring.test.book.BookTestRepository;
+import com.grepp.spring.test.member.MemberTestRepository;
+import com.grepp.spring.test.member.MemberTestRepositoryCustom;
+import com.grepp.spring.test.member.MemberTestRepositoryCustomImpl;
 import com.grepp.spring.test.rent.RentTestRepository;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.DisplayName;
@@ -16,6 +20,8 @@ public class QueryDSLTest {
     private RentTestRepository rentTestRepository;
     @Autowired
     private BookTestRepository bookTestRepository;
+    @Autowired
+    private MemberTestRepositoryCustomImpl memberTestRepositoryCustomImpl;
 
     @Test
     @DisplayName("대출건 제목이 디디로 시작하고 대출자 id가 test")
@@ -62,6 +68,20 @@ public class QueryDSLTest {
     @DisplayName("카테고리별 groupBy")
     public void groupBy(){
         bookTestRepository.groupBy()
+            .forEach(System.out::println);
+    }
+
+    @Test
+    @DisplayName("대출도서가 조회하는 회원 조회")
+    public void subQuery(){
+        memberTestRepositoryCustomImpl.subQuery(RentState.RENT)
+            .forEach(System.out::println);
+    }
+
+    @Test
+    @DisplayName("사용자와 동명이인의 작가가 존재하는 회원과 도서정보 조회")
+    public void thetaJoin(){
+        memberTestRepositoryCustomImpl.thetaJoin()
             .forEach(System.out::println);
     }
 
