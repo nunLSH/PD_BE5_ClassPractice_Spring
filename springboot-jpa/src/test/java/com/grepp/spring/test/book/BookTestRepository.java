@@ -1,4 +1,4 @@
-package com.grepp.spring.test;
+package com.grepp.spring.test.book;
 
 import com.grepp.spring.app.model.book.code.Category;
 import com.grepp.spring.app.model.book.entity.Book;
@@ -7,7 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface BookTestRepository extends JpaRepository<Book, Long> {
+public interface BookTestRepository extends JpaRepository<Book, Long>
+, BookTestRepositoryCustom{
 
     List<Book> findByTitleOrAuthor(String title, String author);
     int countByCategory(Category category);

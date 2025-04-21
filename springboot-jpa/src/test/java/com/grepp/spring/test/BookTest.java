@@ -1,6 +1,7 @@
 package com.grepp.spring.test;
 
 import com.grepp.spring.app.model.book.code.Category;
+import com.grepp.spring.test.book.BookTestRepository;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

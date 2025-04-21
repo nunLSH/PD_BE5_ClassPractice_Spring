@@ -1,5 +1,6 @@
 package com.grepp.spring.test;
 
+import com.grepp.spring.test.book.BookTestRepository;
 import com.grepp.spring.test.rent.RentTestRepository;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.DisplayName;
@@ -13,6 +14,8 @@ public class QueryDSLTest {
 
     @Autowired
     private RentTestRepository rentTestRepository;
+    @Autowired
+    private BookTestRepository bookTestRepository;
 
     @Test
     @DisplayName("대출건 제목이 디디로 시작하고 대출자 id가 test")
@@ -47,4 +50,20 @@ public class QueryDSLTest {
         rentTestRepository.tuple()
             .forEach(System.out::println);
     }
+
+    @Test
+    @DisplayName("도서 등록일자로 내림차순 정렬")
+    public void orderBy(){
+        bookTestRepository.orderBy()
+            .forEach(System.out::println);
+    }
+
+    @Test
+    @DisplayName("카테고리별 groupBy")
+    public void groupBy(){
+        bookTestRepository.groupBy()
+            .forEach(System.out::println);
+    }
+
+
 }
