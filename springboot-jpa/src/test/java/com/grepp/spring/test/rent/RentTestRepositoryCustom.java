@@ -1,6 +1,7 @@
 package com.grepp.spring.test.rent;
 
 import com.grepp.spring.app.model.rent.entity.Rent;
+import com.grepp.spring.test.rent.dto.RentDto;
 import com.querydsl.core.Tuple;
 import java.util.List;
 
