@@ -21,7 +21,7 @@ public class QueryDSLTest {
     @Autowired
     private BookTestRepository bookTestRepository;
     @Autowired
-    private MemberTestRepositoryCustomImpl memberTestRepositoryCustomImpl;
+    private MemberTestRepository memberTestRepository;
 
     @Test
     @DisplayName("대출건 제목이 디디로 시작하고 대출자 id가 test")
@@ -74,14 +74,14 @@ public class QueryDSLTest {
     @Test
     @DisplayName("대출도서가 조회하는 회원 조회")
     public void subQuery(){
-        memberTestRepositoryCustomImpl.subQuery(RentState.RENT)
+        memberTestRepository.subQuery(RentState.RENT)
             .forEach(System.out::println);
     }
 
     @Test
     @DisplayName("사용자와 동명이인의 작가가 존재하는 회원과 도서정보 조회")
     public void thetaJoin(){
-        memberTestRepositoryCustomImpl.thetaJoin()
+        memberTestRepository.thetaJoin()
             .forEach(System.out::println);
     }
 
