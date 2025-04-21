@@ -3,7 +3,6 @@ package com.grepp.spring.test;
 import com.grepp.spring.app.model.rent.code.RentState;
 import com.grepp.spring.test.book.BookTestRepository;
 import com.grepp.spring.test.member.MemberTestRepository;
-import com.grepp.spring.test.member.MemberTestRepositoryCustom;
 import com.grepp.spring.test.member.MemberTestRepositoryCustomImpl;
 import com.grepp.spring.test.rent.RentTestRepository;
 import jakarta.transaction.Transactional;
@@ -22,6 +21,7 @@ public class QueryDSLTest {
     private BookTestRepository bookTestRepository;
     @Autowired
     private MemberTestRepository memberTestRepository;
+
 
     @Test
     @DisplayName("대출건 제목이 디디로 시작하고 대출자 id가 test")
@@ -51,7 +51,7 @@ public class QueryDSLTest {
     }
 
     @Test
-    @DisplayName("projections")
+    @DisplayName("tuple")
     public void tuple(){
         rentTestRepository.tuple()
             .forEach(System.out::println);
@@ -65,14 +65,14 @@ public class QueryDSLTest {
     }
 
     @Test
-    @DisplayName("카테고리별 groupBy")
+    @DisplayName("카테고리별 group by")
     public void groupBy(){
         bookTestRepository.groupBy()
             .forEach(System.out::println);
     }
 
     @Test
-    @DisplayName("대출도서가 조회하는 회원 조회")
+    @DisplayName("대출도서가 존재하는 회원 조회")
     public void subQuery(){
         memberTestRepository.subQuery(RentState.RENT)
             .forEach(System.out::println);
@@ -85,5 +85,11 @@ public class QueryDSLTest {
             .forEach(System.out::println);
     }
 
+    @Test
+    @DisplayName("dynamicQuery")
+    public void dynamicQuery(){
+        memberTestRepository.dynamicQuery("test", "01022223333")
+            .forEach(System.out::println);
+    }
 
 }

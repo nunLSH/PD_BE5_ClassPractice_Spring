@@ -8,6 +8,7 @@ import com.grepp.spring.app.model.member.entity.QMember;
 import com.grepp.spring.app.model.rent.code.RentState;
 import com.grepp.spring.app.model.rent.entity.QRent;
 import com.querydsl.core.Tuple;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.List;
@@ -19,7 +20,6 @@ public class MemberTestRepositoryCustomImpl implements MemberTestRepositoryCusto
     private final JPAQueryFactory queryFactory;
     private final QMember member = QMember.member;
     private final QRent rent = QRent.rent;
-
     @Override
     public List<Member> subQuery(RentState state) {
         return queryFactory.select(member)
@@ -43,5 +43,22 @@ public class MemberTestRepositoryCustomImpl implements MemberTestRepositoryCusto
             .fetch();
     }
 
+    @Override
+    public List<Member> dynamicQuery(String keyword, String tel) {
+        return queryFactory
+            .select(member)
+            .from(member)
+            .where(emailEqOrUserIdEq(keyword), telEq(tel))
+            .fetch();
+    }
 
+    private BooleanExpression emailEqOrUserIdEq(String keyword){
+        return keyword.isBlank() ? null
+            : member.userId.eq(keyword).or(member.email.eq(keyword));
+    }
+
+    private BooleanExpression telEq(String tel){
+        return tel.isBlank() ? null
+            : member.tel.eq(tel);
+    }
 }

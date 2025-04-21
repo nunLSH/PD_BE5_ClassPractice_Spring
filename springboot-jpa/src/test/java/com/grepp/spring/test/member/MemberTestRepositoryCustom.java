@@ -9,5 +9,5 @@ public interface MemberTestRepositoryCustom {
 
     List<Member> subQuery(RentState state);
     List<Tuple> thetaJoin();
-
+    List<Member> dynamicQuery(String keyword, String tel);
 }
