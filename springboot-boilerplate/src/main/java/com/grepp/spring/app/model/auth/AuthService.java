@@ -21,21 +21,21 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 @Transactional(readOnly = true)
 public class AuthService implements UserDetailsService {
-    
+
     private final MemberRepository memberRepository;
     private final TeamMemberRepository teamMemberRepository;
-    
+
     @Override
     public UserDetails loadUserByUsername(String username){
-        
+
         Member member = memberRepository.findById(username)
-                            .orElseThrow(() -> new UsernameNotFoundException(username));
-        
+            .orElseThrow(() -> new UsernameNotFoundException(username));
+
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(member.getRole().name()));
-        
+
         List<TeamMember> teamMembers = teamMemberRepository.findByUserIdAndActivated(username, true);
-        
+
         // 스프링시큐리티는 기본적으로 권한 앞에 ROLE_ 이 있음을 가정
         // hasRole("ADMIN") =>  ROLE_ADMIN 권한이 있는 지 확인.
         // TEAM_{teamId}:{role}
@@ -43,10 +43,10 @@ public class AuthService implements UserDetailsService {
         List<SimpleGrantedAuthority> teamAuthorities =
             teamMembers.stream().map(e -> new SimpleGrantedAuthority("TEAM_" + e.getTeamId() + ":" + e.getRole()))
                 .toList();
-        
+
         authorities.addAll(teamAuthorities);
         return Principal.createPrincipal(member, authorities);
     }
-    
-    
+
+
 }
