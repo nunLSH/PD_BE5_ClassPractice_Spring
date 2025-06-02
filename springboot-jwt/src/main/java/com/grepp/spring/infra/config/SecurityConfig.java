@@ -39,20 +39,20 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableMethodSecurity(prePostEnabled = true)
 @RequiredArgsConstructor
 public class SecurityConfig {
-
+    
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final AuthExceptionFilter authExceptionFilter;
     private final JwtAuthenticationEntryPoint entryPoint;
-
+    
     @Value("${remember-me.key}")
     private String rememberMeKey;
-
+    
     @Bean
     public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
         return http.getSharedObject(AuthenticationManagerBuilder.class)
-            .build();
+                   .build();
     }
-
+    
     @Bean
     public AuthenticationSuccessHandler successHandler(){
         return new AuthenticationSuccessHandler() {
@@ -60,25 +60,25 @@ public class SecurityConfig {
             public void onAuthenticationSuccess(HttpServletRequest request,
                 HttpServletResponse response, Authentication authentication)
                 throws IOException, ServletException {
-
+                
                 boolean isAdmin = authentication.getAuthorities()
-                    .stream()
-                    .anyMatch(authority ->
-                        authority.getAuthority().equals("ROLE_ADMIN"));
-
+                                      .stream()
+                                      .anyMatch(authority ->
+                                                    authority.getAuthority().equals("ROLE_ADMIN"));
+                
                 if(isAdmin){
                     response.sendRedirect("/admin");
                     return;
                 }
-
+                
                 response.sendRedirect("/");
             }
         };
     }
-
+    
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-
+        
         // * : 1depth 아래 모든 경로
         // ** : 모든 depth 의 모든 경로
         // Security Config 에는 인증과 관련된 설정만 지정 (PermitAll or Authenticated)
@@ -89,20 +89,20 @@ public class SecurityConfig {
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(
                 (requests) -> requests
-                    .requestMatchers(GET, "/", "/error", "/favicon.ico", "/css/**", "/img/**","/js/**","/download/**").permitAll()
-                    .requestMatchers(GET, "/book/list").permitAll()
-                    .requestMatchers(GET, "/api/book/list", "/api/member/exists/*", "/api/ai/**").permitAll()
-                    .requestMatchers(GET, "/member/signup", "/member/signup/*", "/member/signin").permitAll()
-                    .requestMatchers(POST, "/member/signin", "/member/signup", "/member/verify").permitAll()
-                    .requestMatchers(POST, "/auth/signin").permitAll()
-                    .anyRequest().authenticated()
+                                  .requestMatchers(GET, "/", "/error", "/favicon.ico", "/css/**", "/img/**","/js/**","/download/**").permitAll()
+                                  .requestMatchers(GET, "/book/list").permitAll()
+                                  .requestMatchers(GET, "/api/book/list", "/api/member/exists/*", "/api/ai/**").permitAll()
+                                  .requestMatchers(GET, "/member/signup", "/member/signup/*", "/member/signin").permitAll()
+                                  .requestMatchers(POST, "/member/signin", "/member/signup", "/member/verify").permitAll()
+                                  .requestMatchers(POST, "/auth/signin").permitAll()
+                                  .anyRequest().authenticated()
             )
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
             .addFilterBefore(authExceptionFilter, JwtAuthenticationFilter.class)
             .exceptionHandling(handler -> handler.authenticationEntryPoint(entryPoint));
         return http.build();
     }
-
+    
     @Bean
     public PasswordEncoder passwordEncoder(){
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();

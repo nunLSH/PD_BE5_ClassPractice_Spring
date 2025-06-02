@@ -23,15 +23,15 @@ import org.springframework.web.servlet.HandlerExceptionResolver;
 @Slf4j
 @Component
 public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
-
+    
     private final HandlerExceptionResolver handlerExceptionResolver;
-
+    
     public JwtAuthenticationEntryPoint(
         @Qualifier("handlerExceptionResolver")
         HandlerExceptionResolver handlerExceptionResolver) {
         this.handlerExceptionResolver = handlerExceptionResolver;
     }
-
+    
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response,
         AuthenticationException authException) throws IOException, ServletException {
@@ -48,18 +48,18 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
                 log.warn(iae.getMessage());
                 yield ResponseCode.UNAUTHORIZED;
             }
-
+         
             default -> {
                 log.warn(authException.getMessage());
                 yield ResponseCode.BAD_REQUEST;
             }
         };
-
+        
         if(request.getRequestURI().startsWith("/api")){
             handlerExceptionResolver.resolveException(request, response, null, new AuthApiException(responseCode));
             return;
         }
-
+        
         handlerExceptionResolver.resolveException(request, response, null, new AuthWebException(responseCode));
     }
 }

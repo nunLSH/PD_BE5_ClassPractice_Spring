@@ -10,5 +10,4 @@ public class TokenResponse {
     private String accessToken;
     private GrantType grantType;
     private Long expiresIn;
-
 }
