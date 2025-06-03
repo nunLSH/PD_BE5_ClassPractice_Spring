@@ -30,6 +30,9 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint
 import org.springframework.security.web.util.matcher.MediaTypeRequestMatcher
+import org.springframework.web.cors.CorsConfiguration
+import org.springframework.web.cors.CorsConfigurationSource
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 import java.security.KeyPair
 import java.security.KeyPairGenerator
 import java.security.interfaces.RSAPrivateKey
@@ -48,6 +51,7 @@ class SecurityConfig {
             OAuth2AuthorizationServerConfigurer.authorizationServer()
 
         http
+            .cors { it.configurationSource(corsConfigurationSource()) }
             .securityMatcher(authorizationServerConfigurer.endpointsMatcher)
             .with<OAuth2AuthorizationServerConfigurer>(
                 authorizationServerConfigurer
@@ -70,6 +74,22 @@ class SecurityConfig {
     }
 
     @Bean
+    fun corsConfigurationSource():CorsConfigurationSource{
+        val corsConfig = CorsConfiguration()
+        corsConfig.setAllowedOriginPatterns(listOf(
+            "http://localhost:8080"
+        ))
+
+        corsConfig.allowedMethods = listOf("GET","POST")
+        corsConfig.allowedHeaders = listOf("*")
+        corsConfig.allowCredentials = true
+
+        val source = UrlBasedCorsConfigurationSource()
+        source.registerCorsConfiguration("/**", corsConfig)
+        return source
+    }
+
+    @Bean
     @Order(2)
     @Throws(Exception::class)
     fun defaultSecurityFilterChain(http: HttpSecurity): SecurityFilterChain {
@@ -86,8 +106,8 @@ class SecurityConfig {
     @Bean
     fun userDetailsService(): UserDetailsService {
         val userDetails: UserDetails = User.withDefaultPasswordEncoder()
-            .username("user")
-            .password("password")
+            .username("test")
+            .password("1111aaaa")
             .roles("USER")
             .build()
 
