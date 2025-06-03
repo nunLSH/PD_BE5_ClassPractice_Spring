@@ -3,6 +3,7 @@ package com.grepp.spring.infra.auth.token;
 import com.grepp.spring.app.model.auth.token.RefreshTokenRepository;
 import com.grepp.spring.app.model.auth.domain.Principal;
 import com.grepp.spring.app.model.auth.token.dto.AccessTokenDto;
+import com.grepp.spring.infra.auth.UserDetailsServiceImpl;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -10,6 +11,8 @@ import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.SecurityException;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Base64;
@@ -27,29 +30,32 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class JwtProvider {
-
+    
     private RefreshTokenRepository refreshTokenRepository;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
-
+    private final UserDetailsServiceImpl userDetailsService;
+    
     @Value("${jwt.secrete}")
     private String key;
-
+    
     @Getter
     @Value("${jwt.access-expiration}")
     private long atExpiration;
-
+    
     @Getter
     @Value("${jwt.refresh-expiration}")
     private long rtExpiration;
-
+    
     private SecretKey secretKey;
-
+    
     public SecretKey getSecretKey(){
         if(secretKey == null){
             String base64Key = Base64.getEncoder().encodeToString(key.getBytes());
@@ -57,51 +63,46 @@ public class JwtProvider {
         }
         return secretKey;
     }
-
+    
     public AccessTokenDto generateAccessToken(Authentication authentication){
         String authorities = authentication.getAuthorities().stream()
-            .map(GrantedAuthority::getAuthority)
-            .collect(Collectors.joining(","));
-
+                                 .map(GrantedAuthority::getAuthority)
+                                 .collect(Collectors.joining(","));
+        
         String id = UUID.randomUUID().toString();
         long now = new Date().getTime();
         Date atExpiresIn = new Date(now + atExpiration);
         String accessToken = Jwts.builder()
-            .subject(authentication.getName())
-            .id(id)
-            .claim("auth",authorities)
-            .expiration(atExpiresIn)
-            .signWith(getSecretKey())
-            .compact();
-
+                   .subject(authentication.getName())
+                   .id(id)
+                   .expiration(atExpiresIn)
+                   .signWith(getSecretKey())
+                   .compact();
+        
         return AccessTokenDto.builder()
-            .id(id)
-            .token(accessToken)
-            .expiresIn(atExpiration)
-            .build();
+                   .id(id)
+                   .token(accessToken)
+                   .expiresIn(atExpiration)
+                   .build();
     }
-
+    
     public Authentication genreateAuthentication(String accessToken){
         Claims claims = parseClaim(accessToken);
-        List<? extends GrantedAuthority> authorities =
-            Arrays.stream(claims.get("auth").toString().split(","))
-                .map(SimpleGrantedAuthority::new)
-                .toList();
-
+        List<? extends GrantedAuthority> authorities = userDetailsService.findAuthorities(claims.getSubject());
         Principal principal = new Principal(claims.getSubject(),"", authorities);
         return new UsernamePasswordAuthenticationToken(principal, "", authorities);
     }
-
+    
     public Claims parseClaim(String accessToken) {
         try{
             return Jwts.parser().verifyWith(getSecretKey()).build()
-                .parseSignedClaims(accessToken).getPayload();
+                       .parseSignedClaims(accessToken).getPayload();
         }catch (ExpiredJwtException ex){
             return ex.getClaims();
         }
     }
-
-
+    
+    
     public boolean validateToken(String requestAccessToken) {
         try{
             Jwts.parser().verifyWith(getSecretKey()).build().parse(requestAccessToken);
@@ -111,4 +112,23 @@ public class JwtProvider {
         }
         return false;
     }
+    
+    public String resolveToken(HttpServletRequest request, TokenType tokenType) {
+        String headerToken = request.getHeader("Authorization");
+        if (headerToken != null && headerToken.startsWith("Bearer")) {
+            return headerToken.substring(7);
+        }
+        
+        Cookie[] cookies = request.getCookies();
+        if (cookies == null) {
+            return null;
+        }
+        
+        return Arrays.stream(cookies)
+                   .filter(e -> e.getName().equals(tokenType.name()))
+                   .map(Cookie::getValue).findFirst()
+                   .orElse(null);
+    }
+    
+
 }

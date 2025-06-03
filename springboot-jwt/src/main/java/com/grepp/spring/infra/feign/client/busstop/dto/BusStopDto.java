@@ -18,5 +18,5 @@ public class BusStopDto {
     private String latitude;
     @JsonProperty("STOPS_TYPE")
     private String type;
-
+    
 }

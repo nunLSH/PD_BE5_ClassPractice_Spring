@@ -6,13 +6,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 class DataInitializeServiceTest {
-
+    
     @Autowired
     DataInitializeService dataInitializeService;
-
+    
     @Test
     public void initTest(){
         dataInitializeService.initialize();
     }
-
+    
 }

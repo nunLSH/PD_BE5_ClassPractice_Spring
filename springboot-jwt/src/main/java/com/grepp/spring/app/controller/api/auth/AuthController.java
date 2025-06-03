@@ -23,9 +23,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @Slf4j
 public class AuthController {
-
+    
     private final AuthService authService;
-
+    
     @PostMapping("signin")
     public ResponseEntity<ApiResponse<TokenResponse>> signin(
         @RequestBody
@@ -37,17 +37,17 @@ public class AuthController {
             dto.getAccessToken(), dto.getAtExpiresIn());
         ResponseCookie refreshTokenCookie = TokenCookieFactory.create(TokenType.REFRESH_TOKEN.name(),
             dto.getRefreshToken(), dto.getRtExpiresIn());
-
+        
         response.addHeader("Set-Cookie", accessTokenCookie.toString());
         response.addHeader("Set-Cookie", refreshTokenCookie.toString());
         TokenResponse tokenResponse = TokenResponse.builder()
-            .accessToken(dto.getAccessToken())
-            .expiresIn(dto.getAtExpiresIn())
-            .grantType(GrantType.BEARER)
-            .build();
+                                          .accessToken(dto.getAccessToken())
+                                          .expiresIn(dto.getAtExpiresIn())
+                                          .grantType(GrantType.BEARER)
+                                          .build();
         return ResponseEntity.ok(ApiResponse.success(tokenResponse));
     }
-
+    
     @PostMapping("logout")
     public ResponseEntity<ApiResponse<Void>> logout(
         HttpServletResponse response
@@ -58,22 +58,22 @@ public class AuthController {
         response.addHeader("Set-Cookie", expiredRefreshToken.toString());
         return ResponseEntity.ok(ApiResponse.noContent());
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }

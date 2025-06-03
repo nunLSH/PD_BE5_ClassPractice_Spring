@@ -1,3 +1,4 @@
+
 insert into member(user_Id,password,email,tel,created_at,modified_at,activated) values('user01','{bcrypt}$2a$10$wpExfAsDJ/5XjVmM7ybfmex6PghsJSY1pN9U8KOE5ps09ZwfNFUSC','test@grepp.com','01000000000',now(),now(),TRUE);
 insert into member(user_Id,password,email,tel,created_at,modified_at,activated) values('user02','{bcrypt}$2a$10$wpExfAsDJ/5XjVmM7ybfmex6PghsJSY1pN9U8KOE5ps10ZwfNFUSC','test@grepp.com','01000000001',now(),now(),TRUE);
 insert into member(user_Id,password,email,tel,created_at,modified_at,activated) values('user03','{bcrypt}$2a$10$wpExfAsDJ/5XjVmM7ybfmex6PghsJSY1pN9U8KOE5ps11ZwfNFUSC','test@grepp.com','01000000002',now(),now(),TRUE);
@@ -90,6 +91,7 @@ insert into student(user_Id,name,mbti,major,created_at,modified_at,activated) va
 insert into student(user_Id,name,mbti,major,created_at,modified_at,activated) values('user43','이초롱','ESTJ','frontend',now(),now(),TRUE);
 insert into student(user_Id,name,mbti,major,created_at,modified_at,activated) values('user44','황영준','ESFJ','frontend',now(),now(),TRUE);
 insert into student(user_Id,name,mbti,major,created_at,modified_at,activated) values('user45','양이솔','ISTP','frontend',now(),now(),TRUE);
+
 
 
 insert into team(id, NAME) values (1000, 'grepp');

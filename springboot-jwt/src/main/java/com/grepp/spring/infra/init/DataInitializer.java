@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class DataInitializer {
 
     private final DataInitializeService dataInitializeService;
-
+    
     @EventListener(ApplicationReadyEvent.class)
     public void init(){
         dataInitializeService.initialize();

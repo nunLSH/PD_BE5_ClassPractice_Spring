@@ -21,18 +21,18 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class DataInitializeService {
-
+    
     private final BusStopRepository busStopRepository;
     private final StudentRepository studentRepository;
     private final EmbeddingModel embeddingModel;
     private final StudentEmbeddingRepository studentEmbeddingRepository;
-
+    
     private final BusStopApi busStopApi;
     private final ModelMapper mapper;
-
+    
     @Value("${bus-stop.apikey}")
     private String apiKey;
-
+    
     @Transactional
     public void initialize() {
         if (busStopRepository.count() > 0) {
@@ -43,18 +43,18 @@ public class DataInitializeService {
         List<BusStop> busStops = dtos.stream().map(e -> mapper.map(e, BusStop.class)).toList();
         busStopRepository.saveAll(busStops);
     }
-
+    
     @Transactional
     public void initializeVector() {
-
+        
         if (studentEmbeddingRepository.count() > 0)  return;
         List<Student> students = studentRepository.findAll();
         List<StudentEmbedding> embeddings = students
-            .stream()
-            .map(entity -> StudentEmbedding.fromEntity(entity,
-                embeddingModel))
-            .toList();
-
+                                                .stream()
+                                                .map(entity -> StudentEmbedding.fromEntity(entity,
+                                                    embeddingModel))
+                                                .toList();
+        
         studentEmbeddingRepository.saveAll(embeddings);
         System.out.println("Persisting document embeddings...");
     }

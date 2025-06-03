@@ -6,10 +6,10 @@ import feign.codec.ErrorDecoder;
 import org.springframework.http.HttpStatus;
 
 public class BusStopErrorDecoder implements ErrorDecoder {
-
+    
     @Override
     public Exception decode(String s, Response response) {
         HttpStatus status = HttpStatus.valueOf(response.status());
-        return new FeignCommonException("0000", "BusSTopError", status);
+        return new FeignCommonException("", "", status);
     }
 }

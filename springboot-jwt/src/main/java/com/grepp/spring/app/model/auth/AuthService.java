@@ -32,31 +32,31 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 @Transactional(readOnly = true)
 public class AuthService {
-
+    
     private final RefreshTokenRepository refreshTokenRepository;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final UserBlackListRepository userBlackListRepository;
     private final JwtProvider jwtProvider;
-
+    
     public TokenDto signin(String username, String password){
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username, password);
         // loadUserByUsername + password 검증 후 authentication 반환
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authToken);
         SecurityContextHolder.getContext().setAuthentication(authentication);
-
+        
         // 블랙리스트에서 제거
         userBlackListRepository.deleteById(username);
-
+        
         AccessTokenDto dto = jwtProvider.generateAccessToken(authentication);
         RefreshToken refreshToken = new RefreshToken(authentication.getName(), dto.getId());
         refreshTokenRepository.save(refreshToken);
-
+        
         return TokenDto.builder()
-            .accessToken(dto.getToken())
-            .refreshToken(refreshToken.getToken())
-            .atExpiresIn(jwtProvider.getAtExpiration())
-            .rtExpiresIn(jwtProvider.getRtExpiration())
-            .grantType(GrantType.BEARER)
-            .build();
+                   .accessToken(dto.getToken())
+                   .refreshToken(refreshToken.getToken())
+                   .atExpiresIn(jwtProvider.getAtExpiration())
+                   .rtExpiresIn(jwtProvider.getRtExpiration())
+                   .grantType(GrantType.BEARER)
+                   .build();
     }
 }

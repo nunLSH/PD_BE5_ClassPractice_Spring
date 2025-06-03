@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface StudentEmbeddingRepository
     extends MongoRepository<StudentEmbedding, String> {
-
+    
     List<StudentEmbedding> findByMbti(MBTI mbti);
-
+    
 }

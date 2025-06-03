@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 @Entity
 public class BusStop extends BaseEntity {
-
+    
     @Id
     private Long id;
     private String stopsNumber;

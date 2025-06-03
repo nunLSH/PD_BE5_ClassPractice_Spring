@@ -27,7 +27,7 @@ public class TeamController {
         model.addAttribute("username", authentication.getName());
         return "team/team";
     }
-
+    
     @GetMapping("{id}/dashboard")
     @PreAuthorize("hasAuthority('TEAM_' + #id + ':LEADER')")
     public String teamDashboard(
@@ -35,6 +35,6 @@ public class TeamController {
     ){
         return "team/team-dashboard";
     }
-
-
+    
+    
 }

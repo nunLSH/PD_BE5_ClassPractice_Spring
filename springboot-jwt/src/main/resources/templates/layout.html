@@ -3,21 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <title>Title</title>
-  <th:block th:replace="~{fragments :: frg_static}"/>
+  <th:block th:replace="~{fragments :: frg_static}" />
 </head>
 <body>
-  <th:block th:replace="~{fragments :: frg_header}"/>
-  <th:block th:replace="~{fragments :: frg_sidenav}"/>
+  <th:block th:replace="~{fragments :: frg_header}" />
+  <th:block th:replace="~{fragments :: frg_sidenav}" />
 
   <main layout:fragment="content" class="container">
 
   </main>
 
-  <th:block th:replace="~{fragments :: frg_footer}"/>
+  <th:block th:replace="~{fragments :: frg_footer}" />
 
   <th:block layout:fragment="script">
 
   </th:block>
+
 </body>
 </html>
     

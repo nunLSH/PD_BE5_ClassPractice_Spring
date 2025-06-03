@@ -18,13 +18,13 @@ public enum MBTI {
     ESTP ("위험을 감수하며 현실적인 문제 해결에 능숙한 사업가입니다."),
     ESFP ("주변 사람들을 즐겁게 하는 즉흥적이고 활기 넘치는 연예인입니다."),
     ;
-
+    
     String desc;
-
+    
     MBTI(String desc) {
         this.desc = desc;
     }
-
+    
     public String desc(){
         return desc;
     }

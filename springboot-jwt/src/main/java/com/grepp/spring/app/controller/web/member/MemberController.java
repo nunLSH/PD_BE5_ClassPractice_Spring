@@ -28,25 +28,25 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Slf4j
 @RequestMapping("member")
 public class MemberController {
-
+    
     private final MemberService memberService;
 
     @GetMapping("signup")
     public String signup(SignupRequest form){
         return "member/signup";
     }
-
+    
     @PostMapping("verify")
     public String verifySignup(
         @Valid SignupRequest form,
         BindingResult bindingResult,
         HttpSession session,
         RedirectAttributes redirectAttributes){
-
+        
         if(bindingResult.hasErrors()){
             return "member/signup";
         }
-
+        
         String token = UUID.randomUUID().toString();
         MemberDto dto = form.toDto();
         memberService.sendVerificationMail(token, dto);
@@ -54,38 +54,40 @@ public class MemberController {
         redirectAttributes.addAttribute("msg", "회원가입 메일이 발송되었습니다.");
         return "redirect:/";
     }
-
+    
     @GetMapping("signup/{token}")
     public String signup(
         @PathVariable
         String token,
         HttpSession session
-    ){
-
+       ){
+        
         MemberDto dto = (MemberDto) session.getAttribute(token);
-
+        
         if(dto == null){
             throw new CommonException(ResponseCode.INVALID_TOKEN);
         }
-
+        
         memberService.signup(dto, Role.ROLE_USER);
         session.removeAttribute(token);
         return "redirect:/";
     }
-
+    
     @GetMapping("signin")
     public String signin(SigninRequest form){
         return "member/signin";
     }
-
+    
+    
     @GetMapping("mypage")
     public String mypage(Authentication authentication, Model model){
+        log.info("authentication : {}", authentication);
         String userId = authentication.getName();
         MemberDto memberDto = memberService.findById(userId);
         model.addAttribute("member", memberDto);
         return "member/mypage";
     }
-
+    
     @PreAuthorize("hasAuthority('ROLE_ADMIN') or authentication.name == #id")
     @GetMapping("{id}")
     public String get(@PathVariable String id, Model model){

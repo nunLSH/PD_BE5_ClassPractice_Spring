@@ -5,7 +5,6 @@ import com.grepp.spring.app.controller.api.student.payload.StudentRecommendRespo
 import com.grepp.spring.app.model.student.StudentAiService;
 import com.grepp.spring.app.model.student.code.Sentimental;
 import com.grepp.spring.infra.response.ApiResponse;
-import dev.langchain4j.model.chat.ChatLanguageModel;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -18,27 +17,25 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping("api/ai")
 public class StudentApiController {
-
+    
     private final StudentAiService studentAiService;
-
+    
     @GetMapping("chat")
     public String chat(String message){
         return studentAiService.chat(message);
     }
-
+    
     @GetMapping("classify")
     public ResponseEntity<ApiResponse<Sentimental>> classify(String message){
         return ResponseEntity.ok(ApiResponse.success(
             studentAiService.classify(message)
         ));
     }
-
+    
     @GetMapping("recommend/team")
     public ResponseEntity<ApiResponse<StudentRecommendResponse>> recommendTeam(
         StudentRecommendRequest request
     ){
         return ResponseEntity.ok(ApiResponse.success(studentAiService.recommendTeam(request)));
     }
-
-
 }

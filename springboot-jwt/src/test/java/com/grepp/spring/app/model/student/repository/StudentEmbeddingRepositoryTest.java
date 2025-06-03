@@ -17,7 +17,7 @@ class StudentEmbeddingRepositoryTest {
     StudentEmbeddingRepository studentEmbeddingRepository;
     @Autowired
     EmbeddingModel model;
-
+    
     @Test
     public void save(){
         Student student = new Student();
@@ -25,33 +25,35 @@ class StudentEmbeddingRepositoryTest {
         student.setName("test");
         student.setMbti(MBTI.ENTP);
         student.setMajor("backend");
-
+        
         studentEmbeddingRepository.save(StudentEmbedding.fromEntity(student, model));
         assertThat(studentEmbeddingRepository.existsById("test"))
             .isTrue();
     }
-
+    
     @Test
     public void findByMbti(){
         studentEmbeddingRepository.findByMbti(MBTI.INFP)
             .forEach(System.out::println);
     }
-
+    
     @Test
     public void update(){
         StudentEmbedding embedding = studentEmbeddingRepository.findById("test").get();
         embedding.setMbti(MBTI.INFP);
         embedding.embed(model);
-
+        
         studentEmbeddingRepository.save(embedding);
         studentEmbeddingRepository.findByMbti(MBTI.INFP)
             .forEach(System.out::println);
     }
-
+    
     @Test
     public void delete(){
         studentEmbeddingRepository.deleteById("test");
         assertThat(studentEmbeddingRepository.existsById("test"))
             .isFalse();
     }
+    
+    
 }

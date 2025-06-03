@@ -13,20 +13,20 @@ public class FeignCommonException extends RuntimeException{
     private String code;
     private String message;
     private HttpStatus status;
-
+    
     public FeignCommonException() {
     }
-
+    
     public FeignCommonException(Throwable cause) {
         super(cause);
     }
-
+    
     public FeignCommonException(String code, String message, HttpStatus status) {
         this.code = code;
         this.message = message;
         this.status = status;
     }
-
+    
     public FeignCommonException(Throwable cause, String code, String message, HttpStatus status) {
         super(cause);
         this.code = code;
