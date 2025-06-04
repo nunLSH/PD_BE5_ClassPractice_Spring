@@ -58,6 +58,10 @@ kotlin {
     }
 }
 
+noArg{
+    annotation("com.grepp.auth.infra.annotation.NoArgsConstructor")
+}
+
 allOpen {
     annotation("jakarta.persistence.Entity")
     annotation("jakarta.persistence.MappedSuperclass")
