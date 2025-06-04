@@ -23,9 +23,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @Slf4j
 public class AuthController {
-    
+
     private final AuthService authService;
-    
+
     @PostMapping("signin")
     public ResponseEntity<ApiResponse<TokenResponse>> signin(
         @RequestBody
@@ -37,45 +37,21 @@ public class AuthController {
             dto.getAccessToken(), dto.getAtExpiresIn());
         ResponseCookie refreshTokenCookie = TokenCookieFactory.create(TokenType.REFRESH_TOKEN.name(),
             dto.getRefreshToken(), dto.getRtExpiresIn());
-        
+
         response.addHeader("Set-Cookie", accessTokenCookie.toString());
         response.addHeader("Set-Cookie", refreshTokenCookie.toString());
         TokenResponse tokenResponse = TokenResponse.builder()
-                                          .accessToken(dto.getAccessToken())
-                                          .expiresIn(dto.getAtExpiresIn())
-                                          .grantType(GrantType.BEARER)
-                                          .build();
+            .accessToken(dto.getAccessToken())
+            .expiresIn(dto.getAtExpiresIn())
+            .grantType(GrantType.BEARER)
+            .build();
         return ResponseEntity.ok(ApiResponse.success(tokenResponse));
     }
-    
-    @PostMapping("logout")
+
+    //@PostMapping("logout")
     public ResponseEntity<ApiResponse<Void>> logout(
         HttpServletResponse response
     ){
-        ResponseCookie expiredAccessToken = TokenCookieFactory.createExpiredToken(TokenType.ACCESS_TOKEN);
-        ResponseCookie expiredRefreshToken = TokenCookieFactory.createExpiredToken(TokenType.REFRESH_TOKEN);
-        ResponseCookie expiredAuthSessionId = TokenCookieFactory.createExpiredToken(TokenType.AUTH_SERVER_SESSION_ID);
-        response.addHeader("Set-Cookie", expiredAccessToken.toString());
-        response.addHeader("Set-Cookie", expiredRefreshToken.toString());
-        response.addHeader("Set-Cookie", expiredAuthSessionId.toString());
         return ResponseEntity.ok(ApiResponse.noContent());
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 }
