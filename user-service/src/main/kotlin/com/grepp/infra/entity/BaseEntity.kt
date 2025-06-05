@@ -1,24 +1,24 @@
-package com.grepp.infra.entity;
+package com.grepp.spring.infra.entity
 
-import jakarta.persistence.EntityListeners;
-import jakarta.persistence.MappedSuperclass;
-import java.time.LocalDateTime;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import jakarta.persistence.EntityListeners
+import jakarta.persistence.MappedSuperclass
+import org.springframework.data.annotation.CreatedDate
+import org.springframework.data.annotation.LastModifiedDate
+import org.springframework.data.jpa.domain.support.AuditingEntityListener
+import java.time.LocalDateTime
 
 @MappedSuperclass
-@EntityListeners(AuditingEntityListener.class)
-public class BaseEntity {
-    
-    protected Boolean activated = true;
-    
+@EntityListeners(AuditingEntityListener::class)
+class BaseEntity {
+    protected var activated: Boolean = true
+
     @CreatedDate
-    protected LocalDateTime createdAt = LocalDateTime.now();
+    protected var createdAt: LocalDateTime = LocalDateTime.now()
+
     @LastModifiedDate
-    protected LocalDateTime modifiedAt = LocalDateTime.now();
-    
-    public void unActivated(){
-        this.activated = false;
+    protected var modifiedAt: LocalDateTime = LocalDateTime.now()
+
+    fun unActivated() {
+        this.activated = false
     }
 }

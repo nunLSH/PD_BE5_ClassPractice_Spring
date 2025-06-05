@@ -1,7 +1,7 @@
 package com.grepp.spring.app.model.member.entity
 
 import com.grepp.app.model.member.code.Role
-import com.grepp.infra.entity.BaseEntity
+import com.grepp.spring.infra.entity.BaseEntity
 import jakarta.persistence.*
 import java.time.LocalDateTime
 
