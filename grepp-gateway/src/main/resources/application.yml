@@ -1,0 +1,46 @@
+spring:
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+  sql:
+    init:
+      mode: never
+  datasource:
+    url: jdbc:mysql://localhost:3306/bookmanager-jpa?useUnicode=true&characterEncoding=utf8
+    username: bm
+    password: it2116016^^
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximum-pool-size: 5
+  cloud:
+    gateway:
+      server:
+        webmvc:
+          routes:
+            - id: user_service
+              uri: https://localhost:8081
+              predicates:
+                - Path=/api/member/**
+              filters:
+                - AddRequestHeader=X-member-id, test
+                - AddRequestHeader=X-member-role, ROLE_ADMIN
+
+logging:
+  level:
+    root: info
+    org:
+      hibernate:
+        SQL: debug
+        type:
+          descriptor:
+            sql: trace
+      springframework:
+        cloud:
+          openfeign: trace
+        client:
+          RestTemplate: debug
+        security: trace
