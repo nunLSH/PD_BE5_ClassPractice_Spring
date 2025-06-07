@@ -17,7 +17,14 @@ data class SignupRequest(
 
 @NoArgsConstructor
 data class MemberDetailResponse(
-    var userId:String,
-    var email:String,
-    var tel: String
+    // 서버에러
+//    var userId:String,
+//    var email:String,
+//    var tel: String
+
+    // 서버에러 해결
+    var userId: String? = null,
+    var email: String? = null,
+    var role: String? = null,
+    var tel: String? = null
 )
