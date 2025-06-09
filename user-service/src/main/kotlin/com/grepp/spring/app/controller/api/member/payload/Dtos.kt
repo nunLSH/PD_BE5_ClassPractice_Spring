@@ -1,6 +1,6 @@
 package com.grepp.spring.app.controller.api.member.payload
 
-import com.grepp.infra.annotation.NoArgsConstructor
+import com.grepp.spring.infra.annotation.NoArgsConstructor
 import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.NotBlank
 
@@ -15,7 +15,7 @@ data class SignupRequest(
     val tel: String
 )
 
-@NoArgsConstructor
+@com.grepp.spring.infra.annotation.NoArgsConstructor
 data class MemberDetailResponse(
     // 서버에러
 //    var userId:String,

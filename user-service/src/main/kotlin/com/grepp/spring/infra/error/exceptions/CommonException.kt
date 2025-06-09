@@ -1,28 +1,28 @@
 package com.grepp.spring.infra.error.exceptions
 
-import com.grepp.infra.response.ResponseCode
+import com.grepp.spring.infra.response.ResponseCode
 import org.slf4j.LoggerFactory
 
 open class CommonException : RuntimeException {
-    private val code: ResponseCode
+    private val code: com.grepp.spring.infra.response.ResponseCode
     private var redirect = "/"
     private val log = LoggerFactory.getLogger(javaClass)
 
-    constructor(code: ResponseCode) {
+    constructor(code: com.grepp.spring.infra.response.ResponseCode) {
         this.code = code
     }
 
-    constructor(code: ResponseCode, redirect: String) {
+    constructor(code: com.grepp.spring.infra.response.ResponseCode, redirect: String) {
         this.code = code
         this.redirect = redirect
     }
 
-    constructor(code: ResponseCode, e: Exception) {
+    constructor(code: com.grepp.spring.infra.response.ResponseCode, e: Exception) {
         this.code = code
         log.error(e.message, e)
     }
 
-    constructor(code: ResponseCode, e: Exception, redirect: String) {
+    constructor(code: com.grepp.spring.infra.response.ResponseCode, e: Exception, redirect: String) {
         this.code = code
         this.redirect = redirect
         log.error(e.message, e)
@@ -32,7 +32,7 @@ open class CommonException : RuntimeException {
         return redirect
     }
 
-    fun code(): ResponseCode {
+    fun code(): com.grepp.spring.infra.response.ResponseCode {
         return code
     }
 }

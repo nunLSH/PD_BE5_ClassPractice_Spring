@@ -1,4 +1,4 @@
-package com.grepp.app.model.member.code
+package com.grepp.spring.app.model.member.code
 
 enum class Role {
     ROLE_USER,

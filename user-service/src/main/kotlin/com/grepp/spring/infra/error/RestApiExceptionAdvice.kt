@@ -1,6 +1,6 @@
 package com.grepp.spring.infra.error
 
-import com.grepp.infra.response.ResponseCode
+import com.grepp.spring.infra.response.ResponseCode
 import com.grepp.spring.infra.error.exceptions.CommonException
 import com.grepp.spring.infra.response.ApiResponse
 import org.slf4j.LoggerFactory
@@ -27,7 +27,7 @@ class RestApiExceptionAdvice {
         ex.fieldErrors.forEach { errors[it.field] = it.defaultMessage }
         return ResponseEntity
             .badRequest()
-            .body(ApiResponse.error(ResponseCode.BAD_REQUEST, errors))
+            .body(ApiResponse.error(com.grepp.spring.infra.response.ResponseCode.BAD_REQUEST, errors))
     }
 
     @ExceptionHandler(HttpRequestMethodNotSupportedException::class)
@@ -35,7 +35,7 @@ class RestApiExceptionAdvice {
             ResponseEntity<ApiResponse<String?>> {
         return ResponseEntity
             .badRequest()
-            .body(ApiResponse.error(ResponseCode.BAD_REQUEST, ex.message))
+            .body(ApiResponse.error(com.grepp.spring.infra.response.ResponseCode.BAD_REQUEST, ex.message))
     }
 
     @ExceptionHandler(CommonException::class)
@@ -52,7 +52,7 @@ class RestApiExceptionAdvice {
     ): ResponseEntity<ApiResponse<Unit>> {
         return ResponseEntity
             .status(HttpStatus.UNAUTHORIZED)
-            .body(ApiResponse.error(ResponseCode.UNAUTHORIZED))
+            .body(ApiResponse.error(com.grepp.spring.infra.response.ResponseCode.UNAUTHORIZED))
     }
 
     @ExceptionHandler(BadCredentialsException::class)
@@ -62,13 +62,13 @@ class RestApiExceptionAdvice {
     ): ResponseEntity<ApiResponse<Unit>> {
         return ResponseEntity
             .status(HttpStatus.UNAUTHORIZED)
-            .body(ApiResponse.error(ResponseCode.BAD_CREDENTIAL))
+            .body(ApiResponse.error(com.grepp.spring.infra.response.ResponseCode.BAD_CREDENTIAL))
     }
 
     @ExceptionHandler(RuntimeException::class)
     fun runtimeExceptionHandler(ex: RuntimeException): ResponseEntity<ApiResponse<Unit>> {
         return ResponseEntity
             .internalServerError()
-            .body(ApiResponse.error(ResponseCode.INTERNAL_SERVER_ERROR))
+            .body(ApiResponse.error(com.grepp.spring.infra.response.ResponseCode.INTERNAL_SERVER_ERROR))
     }
 }

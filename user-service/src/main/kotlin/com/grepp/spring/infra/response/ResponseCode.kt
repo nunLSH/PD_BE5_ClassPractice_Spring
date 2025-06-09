@@ -1,4 +1,4 @@
-package com.grepp.infra.response
+package com.grepp.spring.infra.response
 
 import org.springframework.http.HttpStatus
 

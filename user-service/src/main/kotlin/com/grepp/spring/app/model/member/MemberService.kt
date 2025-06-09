@@ -1,7 +1,7 @@
 package com.grepp.spring.app.model.member
 
-import com.grepp.app.model.member.code.Role
-import com.grepp.infra.response.ResponseCode
+import com.grepp.spring.app.model.member.code.Role
+import com.grepp.spring.infra.response.ResponseCode
 import com.grepp.spring.app.controller.api.member.payload.MemberDetailResponse
 import com.grepp.spring.app.controller.api.member.payload.SignupRequest
 import com.grepp.spring.app.model.member.entity.Member
@@ -25,7 +25,7 @@ class MemberService(
     @Transactional
     fun signup(request:SignupRequest) {
         if(memberRepository.existsById(request.userId))
-            throw CommonException(ResponseCode.BAD_REQUEST)
+            throw CommonException(com.grepp.spring.infra.response.ResponseCode.BAD_REQUEST)
 
         val encodedPassword = passwordEncoder.encode(request.password)
 
