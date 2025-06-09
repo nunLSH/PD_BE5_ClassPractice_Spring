@@ -3,7 +3,7 @@ package com.grepp.spring.infra.auth.oauth2.user;
 import com.grepp.spring.app.model.auth.AuthService;
 import com.grepp.spring.app.model.auth.token.RefreshTokenService;
 import com.grepp.spring.infra.auth.token.JwtProvider;
-import com.grepp.spring.infra.auth.token.TokenType;
+import com.grepp.spring.infra.auth.token.code.TokenType;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

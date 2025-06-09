@@ -4,10 +4,10 @@ import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
 
 import com.grepp.spring.infra.auth.oauth2.OAuth2SuccessHandler;
-import com.grepp.spring.infra.auth.token.AuthExceptionFilter;
-import com.grepp.spring.infra.auth.token.LogoutFilter;
+import com.grepp.spring.infra.auth.token.filter.AuthExceptionFilter;
+import com.grepp.spring.infra.auth.token.filter.LogoutFilter;
 import com.grepp.spring.infra.auth.token.JwtAuthenticationEntryPoint;
-import com.grepp.spring.infra.auth.token.JwtAuthenticationFilter;
+import com.grepp.spring.infra.auth.token.filter.JwtAuthenticationFilter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
