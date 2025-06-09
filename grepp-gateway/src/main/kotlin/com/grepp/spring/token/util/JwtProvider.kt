@@ -8,6 +8,7 @@ import io.jsonwebtoken.security.Keys
 import io.jsonwebtoken.security.SecurityException
 import jakarta.servlet.http.Cookie
 import jakarta.servlet.http.HttpServletRequest
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.core.Authentication
 import org.springframework.stereotype.Service
@@ -19,8 +20,7 @@ import javax.crypto.SecretKey
 class JwtProvider(
     val refreshTokenRepository: RefreshTokenRepository
 ) {
-
-    val log = org.slf4j.LoggerFactory.getLogger(javaClass)
+    private val log = LoggerFactory.getLogger(javaClass)
 
     @Value("\${jwt.secrete}")
     val key: String? = null
@@ -34,31 +34,30 @@ class JwtProvider(
     var secretKey: SecretKey? = null
         get() {
             if (field == null) {
-                val base64Key =
-                    Base64.getEncoder().encodeToString(key!!.toByteArray())
-                field =
-                    Keys.hmacShaKeyFor(base64Key.toByteArray(StandardCharsets.UTF_8))
+                val base64Key = Base64.getEncoder().encodeToString(key!!.toByteArray())
+                field = Keys.hmacShaKeyFor(base64Key.toByteArray(StandardCharsets.UTF_8))
             }
             return field
         }
 
     fun generateAccessToken(authentication: Authentication): AccessTokenDto {
-        return generateAccessToken(authentication.name)
+        return generateAccessToken(authentication.name, authentication.authorities.joinToString(","))
     }
 
-    fun generateAccessToken(username: String?): AccessTokenDto {
+    fun generateAccessToken(username: String, roles: String): AccessTokenDto {
         val id = UUID.randomUUID().toString()
         val now = Date().time
         val atExpiresIn = Date(now + atExpiration)
         val accessToken = Jwts.builder()
             .subject(username)
             .id(id)
+            .claim("roles", roles)
             .expiration(atExpiresIn)
             .signWith(secretKey)
             .compact()
 
         return AccessTokenDto(
-            id = id,
+            id=id,
             token = accessToken,
             expiresIn = atExpiration
         )
@@ -72,7 +71,6 @@ class JwtProvider(
             ex.claims
         }
     }
-
 
     fun validateToken(requestAccessToken: String?): Boolean {
         try {

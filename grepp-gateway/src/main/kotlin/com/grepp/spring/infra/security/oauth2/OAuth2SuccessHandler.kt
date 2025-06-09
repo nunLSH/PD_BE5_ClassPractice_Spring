@@ -26,9 +26,11 @@ class OAuth2SuccessHandler(
         val user = authentication.principal as OAuth2User
         val userInfo = OAuth2UserInfo.create(path, user)
 
-        val tokenDto = authService.processTokenSignin(userInfo.name)
+        val roles = user.getAttribute<ArrayList<String>>("roles")?.first()
+        val tokenDto = authService.processTokenSignin(userInfo!!.name, roles ?: "ROLE_ANONYMOUS")
+
         userBlackListRepository.deleteById(userInfo.name)
         TokenResponseExecutor.response(response, tokenDto)
-        redirectStrategy.sendRedirect(request, response, "/")
+        redirectStrategy.sendRedirect(request,response,"/")
     }
 }

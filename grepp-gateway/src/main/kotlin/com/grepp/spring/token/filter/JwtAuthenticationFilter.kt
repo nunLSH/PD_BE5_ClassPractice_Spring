@@ -4,14 +4,13 @@ import com.grepp.infra.response.ResponseCode
 import com.grepp.spring.infra.error.exceptions.CommonException
 import com.grepp.spring.token.code.GrantType
 import com.grepp.spring.token.code.TokenType
-import com.grepp.spring.token.util.JwtProvider
-import com.grepp.spring.token.util.TokenCookieFactory
 import com.grepp.spring.token.dto.AccessTokenDto
 import com.grepp.spring.token.dto.TokenDto
 import com.grepp.spring.token.entity.RefreshToken
 import com.grepp.spring.token.entity.UserBlackList
 import com.grepp.spring.token.repository.UserBlackListRepository
 import com.grepp.spring.token.service.RefreshTokenService
+import com.grepp.spring.token.util.JwtProvider
 import com.grepp.spring.token.util.TokenResponseExecutor
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.ExpiredJwtException
@@ -20,7 +19,6 @@ import jakarta.servlet.ServletException
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import org.slf4j.LoggerFactory
-import org.springframework.http.ResponseCookie
 import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
 import java.io.IOException
@@ -72,7 +70,7 @@ class JwtAuthenticationFilter(
             if (jwtProvider.validateToken(requestAccessToken)) {
                 request.setAttribute("x-member-id", claims.subject)
                 // fixme accesstoken 발행 시 권한 추가
-                request.setAttribute("x-member-role", "ROLE_USER")
+                request.setAttribute("x-member-role", claims["roles"])
             }
         } catch (ex: ExpiredJwtException) {
             val newAccessToken: AccessTokenDto? = renewingAccessToken(requestAccessToken, request)
@@ -80,7 +78,7 @@ class JwtAuthenticationFilter(
 
             val newRefreshToken = renewingRefreshToken(claims.id, newAccessToken.id)
             request.setAttribute("x-member-id", claims.subject)
-            request.setAttribute("x-member-role", "ROLE_USER")
+            request.setAttribute("x-member-role", claims["roles"])
             responseToken(response, newAccessToken, newRefreshToken)
         } finally {
             filterChain.doFilter(request, response)
@@ -123,6 +121,6 @@ class JwtAuthenticationFilter(
             throw CommonException(ResponseCode.SECURITY_INCIDENT)
         }
 
-        return jwtProvider.generateAccessToken(claims.subject)
+        return jwtProvider.generateAccessToken(claims.subject, claims["roles"].toString())
     }
 }

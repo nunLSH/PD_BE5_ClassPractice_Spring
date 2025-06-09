@@ -20,8 +20,9 @@ class GatewayLogoutFilter(
     val refreshTokenService: RefreshTokenService
 ) : OncePerRequestFilter() {
     @Throws(ServletException::class, IOException::class)
-    override fun doFilterInternal(
-        request: HttpServletRequest, response: HttpServletResponse,
+    protected override fun doFilterInternal(
+        request: HttpServletRequest,
+        response: HttpServletResponse,
         filterChain: FilterChain
     ) {
         val accessToken: String? = jwtProvider.resolveToken(request, TokenType.ACCESS_TOKEN)
@@ -34,7 +35,7 @@ class GatewayLogoutFilter(
         val path = request.requestURI
         val claims: Claims = jwtProvider.parseClaim(accessToken)
 
-        if (path == "/auth/logout") {
+        if (path == "/logout") {
             refreshTokenService.deleteByAccessTokenId(claims.id)
             val expiredAccessToken: ResponseCookie =
                 TokenCookieFactory.createExpiredToken(TokenType.ACCESS_TOKEN)

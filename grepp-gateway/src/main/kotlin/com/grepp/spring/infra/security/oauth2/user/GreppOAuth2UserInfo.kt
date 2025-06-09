@@ -1,32 +1,15 @@
-package com.grepp.spring.infra.security.oauth2.user;
+package com.grepp.spring.infra.security.oauth2.user
 
-import java.util.Map;
+class GreppOAuth2UserInfo(private val attributes: Map<String, Any>) : OAuth2UserInfo {
+    override val providerId: String
+        get() = attributes["sub"].toString()
 
-public class GreppOAuth2UserInfo implements OAuth2UserInfo{
+    override val provider: String
+        get() = "grepp"
 
-    private final Map<String, Object> attributes;
+    override val name: String
+        get() = attributes["sub"].toString()
 
-    public GreppOAuth2UserInfo(Map<String, Object> attributes) {
-        this.attributes = attributes;
-    }
-
-    @Override
-    public String getProviderId() {
-        return attributes.get("sub").toString();
-    }
-
-    @Override
-    public String getProvider() {
-        return "grepp";
-    }
-
-    @Override
-    public String getName() {
-        return attributes.get("sub").toString();
-    }
-
-    @Override
-    public String getPicture() {
-        return "";
-    }
+    override val picture: String
+        get() = ""
 }

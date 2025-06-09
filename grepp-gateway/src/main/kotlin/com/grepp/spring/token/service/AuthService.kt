@@ -18,13 +18,15 @@ class AuthService(
     val jwtProvider: JwtProvider
 ) {
 
-    fun processTokenSignin(username: String): TokenDto {
+    fun processTokenSignin(username: String, roles: String): TokenDto {
         // 블랙리스트에서 제거
         userBlackListRepository.deleteById(username)
 
-        val dto: AccessTokenDto = jwtProvider.generateAccessToken(username)
-        val refreshToken = RefreshToken(email = username, accessTokenId = dto.id)
-        refreshTokenRepository.save(refreshToken)
+        val dto: AccessTokenDto = jwtProvider.generateAccessToken(username, roles)
+        val refreshToken = RefreshToken(
+            email = username,
+            accessTokenId = dto.id)
+        refreshTokenRepository.save<RefreshToken>(refreshToken)
 
         return TokenDto(
             accessToken = dto.token,
