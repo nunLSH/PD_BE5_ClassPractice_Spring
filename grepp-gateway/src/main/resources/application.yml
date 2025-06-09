@@ -27,8 +27,12 @@ spring:
       server:
         webmvc:
           routes:
-            - id: user_service
+            - id: auth_service
               uri: https://localhost:8081
+              predicates:
+                - Path=/auth/**
+            - id: user_service
+              uri: https://localhost:8082
               predicates:
                 - Path=/api/member/**
               filters:
@@ -47,5 +51,5 @@ logging:
 
 jwt:
   secrete: sskfjsasdkfsdklfjwioesdfjslkdfjsdlkfjsdlf
-  access-expiration: 18000
+  access-expiration: 3000
   refresh-expiration: 604800000
