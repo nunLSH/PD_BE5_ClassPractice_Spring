@@ -1,21 +1,27 @@
 spring:
-  jpa:
-    open-in-view: false
-    hibernate:
-      ddl-auto: update
-    properties:
-      hibernate:
-        format_sql: true
-  sql:
-    init:
-      mode: never
-  datasource:
-    url: jdbc:mysql://localhost:3306/bookmanager-jpa?useUnicode=true&characterEncoding=utf8
-    username: bm
-    password: it2116016^^
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    hikari:
-      maximum-pool-size: 5
+  data:
+    redis:
+      host: redis-19970.c256.us-east-1-2.ec2.redns.redis-cloud.com
+      username: default
+      password: mwGJIRMJNPXi9775rlTOjF0hIqQGL4jX
+      port: 19970
+      ssl:
+        enabled: true
+  security:
+    oauth2:
+      client:
+        registration:
+          grepp:
+            provider: grepp-auth
+            client-id: grepp
+            client-secret: secret
+            client-authentication-method: client_secret_basic
+            authorization-grant-type: authorization_code
+            scope: openid, profile
+            redirect-uri: http://localhost:8080/login/oauth2/code/grepp
+        provider:
+          grepp-auth:
+            issuer-uri: http://localhost:8081
   cloud:
     gateway:
       server:
@@ -32,15 +38,14 @@ spring:
 logging:
   level:
     root: info
-    org:
-      hibernate:
-        SQL: debug
-        type:
-          descriptor:
-            sql: trace
-      springframework:
-        cloud:
-          openfeign: trace
-        client:
-          RestTemplate: debug
-        security: trace
+    springframework:
+      cloud:
+        openfeign: trace
+      client:
+        RestTemplate: debug
+      security: trace
+
+jwt:
+  secrete: sskfjsasdkfsdklfjwioesdfjslkdfjsdlkfjsdlf
+  access-expiration: 18000
+  refresh-expiration: 604800000
