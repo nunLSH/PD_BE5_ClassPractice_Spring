@@ -1,16 +1,17 @@
 package com.grepp.spring.token.filter
 
-import com.grepp.infra.response.ResponseCode
 import com.grepp.spring.infra.error.exceptions.CommonException
+import com.grepp.spring.infra.response.ResponseCode
 import com.grepp.spring.token.code.GrantType
 import com.grepp.spring.token.code.TokenType
+import com.grepp.spring.token.util.JwtProvider
+import com.grepp.spring.token.util.TokenCookieFactory
 import com.grepp.spring.token.dto.AccessTokenDto
 import com.grepp.spring.token.dto.TokenDto
 import com.grepp.spring.token.entity.RefreshToken
 import com.grepp.spring.token.entity.UserBlackList
 import com.grepp.spring.token.repository.UserBlackListRepository
 import com.grepp.spring.token.service.RefreshTokenService
-import com.grepp.spring.token.util.JwtProvider
 import com.grepp.spring.token.util.TokenResponseExecutor
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.ExpiredJwtException
@@ -19,6 +20,7 @@ import jakarta.servlet.ServletException
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import org.slf4j.LoggerFactory
+import org.springframework.http.ResponseCookie
 import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
 import java.io.IOException
@@ -52,7 +54,6 @@ class JwtAuthenticationFilter(
         filterChain: FilterChain
     ) {
         log.info(request.requestURI)
-
         val requestAccessToken = jwtProvider.resolveToken(request, TokenType.ACCESS_TOKEN)
 
         if(requestAccessToken == null) {
@@ -60,7 +61,12 @@ class JwtAuthenticationFilter(
             return
         }
 
-        val claims: Claims = jwtProvider.parseClaim(requestAccessToken)
+        val claims = jwtProvider.parseClaim(requestAccessToken)
+        if (claims == null) {
+            filterChain.doFilter(request, response)
+            return
+        }
+
         if (userBlackListRepository.existsById(claims.subject)) {
             filterChain.doFilter(request, response)
             return
@@ -110,7 +116,7 @@ class JwtAuthenticationFilter(
     ): AccessTokenDto? {
         val refreshToken: String? = jwtProvider.resolveToken(request, TokenType.REFRESH_TOKEN)
 
-        val claims: Claims = jwtProvider.parseClaim(requestAccessToken)
+        val claims: Claims = jwtProvider.parseClaim(requestAccessToken)!!
 
         val storedRefreshToken: RefreshToken =
             refreshTokenService.findByAccessTokenId(claims.id)
