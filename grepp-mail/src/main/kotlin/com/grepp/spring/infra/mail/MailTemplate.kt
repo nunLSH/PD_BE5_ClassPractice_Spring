@@ -2,11 +2,15 @@ package com.grepp.spring.infra.mail
 
 import jakarta.mail.Message
 import jakarta.mail.internet.MimeMessage
-import org.springframework.beans.factory.annotation.Value
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.withContext
+import org.slf4j.LoggerFactory
 import org.springframework.mail.javamail.JavaMailSender
 import org.springframework.mail.javamail.MimeMessagePreparator
 import org.springframework.stereotype.Component
 import org.thymeleaf.TemplateEngine
+import org.thymeleaf.context.Context
 
 @Component
 class MailTemplate(
@@ -14,36 +18,31 @@ class MailTemplate(
     private val templateEngine: TemplateEngine
 
 ) {
-    private val properties: MutableMap<String, Any> = java.util.LinkedHashMap()
+    private val log = LoggerFactory.getLogger(javaClass)
 
-    private val templatePath: String? = null
-    private val to: String? = null
-
-    @Value("\${spring.mail.username}")
-    private val from: String? = null
-    private val subject: String? = null
-
-    fun setProperties(name: String, value: Any) {
-        properties[name] = value
+    suspend fun send(dto:SmtpDto) {
+        withContext(Dispatchers.IO) {
+            javaMailSender.send(MimeMessagePreparator { mimeMessage: MimeMessage ->
+                mimeMessage.setFrom(dto.from)
+                mimeMessage.addRecipients(Message.RecipientType.TO, dto.to)
+                mimeMessage.subject = dto.subject
+                mimeMessage.setText(render(dto), "UTF-8", "html")
+            })
+        }
     }
 
-    fun getProperties(name: String): Any? {
-        return properties[name]
-    }
+//    suspend fun mockSend(dto: SmtpDto){
+//        withContext(Dispatchers.IO) {
+//            render(dto)
+//            log.info(Thread.currentThread().name)
+////        delay(1000)
+//            Thread.sleep(1000)
+//        }
+//    }
 
-    @org.springframework.scheduling.annotation.Async
-    fun send() {
-        javaMailSender.send(MimeMessagePreparator { mimeMessage: MimeMessage ->
-            mimeMessage.setFrom(from)
-            mimeMessage.addRecipients(Message.RecipientType.TO, to)
-            mimeMessage.subject = subject
-            mimeMessage.setText(render(), "UTF-8", "html")
-        })
-    }
-
-    private fun render(): String {
-        val context = org.thymeleaf.context.Context()
-        context.setVariables(properties)
-        return templateEngine.process(templatePath, context)
+    private fun render(dto:SmtpDto): String {
+        val context = Context()
+        context.setVariables(dto.properties)
+        return templateEngine.process(dto.templatePath, context)
     }
 }
