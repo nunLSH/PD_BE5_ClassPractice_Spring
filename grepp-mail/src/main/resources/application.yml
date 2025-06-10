@@ -29,7 +29,7 @@ spring:
   mail:
     host: smtp.gmail.com
     username: dev5lsh038@gmail.com
-    password: dsijw]epdsjhbwqei932
+    password: mncxydfsqfowgzsf
     properties:
       mail:
         stmp:
