@@ -1,0 +1,47 @@
+app:
+  domain: http://localhost:8080
+
+server:
+  port: 8083
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+logging:
+  level:
+    root: info
+    org:
+      hibernate:
+        SQL: debug
+        type:
+          descriptor:
+            sql: trace
+      springframework:
+        cloud:
+          openfeign: trace
+        client:
+          RestTemplate: debug
+        security: debug
+
+spring:
+  mail:
+    host: smtp.gmail.com
+    username: dev5lsh038@gmail.com
+    password: dsijw]epdsjhbwqei932
+    properties:
+      mail:
+        stmp:
+          auth: true
+        smtp:
+          starttls:
+            enable: true
+  data:
+    redis:
+      host: redis-19970.c256.us-east-1-2.ec2.redns.redis-cloud.com
+      username: default
+      password: mwGJIRMJNPXi9775rlTOjF0hIqQGL4jX
+      port: 19970
+      ssl:
+        enabled: true
