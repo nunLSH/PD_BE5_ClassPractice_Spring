@@ -12,8 +12,12 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer
 import org.springframework.security.config.annotation.web.configurers.*
 import org.springframework.security.config.http.SessionCreationPolicy
+import org.springframework.security.core.userdetails.User
+import org.springframework.security.core.userdetails.UserDetails
+import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.crypto.factory.PasswordEncoderFactories
 import org.springframework.security.crypto.password.PasswordEncoder
+import org.springframework.security.provisioning.InMemoryUserDetailsManager
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 
@@ -38,29 +42,34 @@ class SecurityConfig(
                 )
             }
             .authorizeHttpRequests(
-                Customizer{it.requestMatchers(
-                    HttpMethod.GET,
-                    "/",
-                    "/error",
-                    "/favicon.ico",
-                    "/css/**",
-                    "/img/**",
-                    "/js/**",
-                    "/download/**"
-                ).permitAll()
-                    .requestMatchers(
-                        "/member/signup",
-                        "/member/signup/*",
-                        "/member/signin"
+                Customizer {
+                    it.requestMatchers(
+                        HttpMethod.GET,
+                        "/",
+                        "/error",
+                        "/favicon.ico",
+                        "/css/**",
+                        "/img/**",
+                        "/js/**",
+                        "/download/**"
                     ).permitAll()
-                    .requestMatchers(
-                        HttpMethod.POST,"/member/verify"
-                    ).permitAll()
-                    .anyRequest().authenticated()
+                        .anyRequest().authenticated()
                 }
             )
             .addFilterBefore(internalAuthFilter, UsernamePasswordAuthenticationFilter::class.java)
         return http.build()
+    }
+
+    @Bean
+    fun userDetailsService(): UserDetailsService {
+        val user: UserDetails =
+            User.withDefaultPasswordEncoder()
+                .username("mail-service")
+                .password("adflanncszd-sjdjsaf")
+                .roles("SERVER")
+                .build()
+
+        return InMemoryUserDetailsManager(user)
     }
 
     @Bean
