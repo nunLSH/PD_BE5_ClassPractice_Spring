@@ -1,6 +1,6 @@
 package com.grepp.spring.infra.error.exceptions
 
-import com.grepp.infra.response.ResponseCode
+import com.grepp.spring.infra.response.ResponseCode
 import org.slf4j.LoggerFactory
 
 open class CommonException : RuntimeException {

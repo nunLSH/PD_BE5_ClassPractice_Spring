@@ -1,6 +1,6 @@
 package com.grepp.spring.infra.error
 
-import com.grepp.infra.response.ResponseCode
+import com.grepp.spring.infra.response.ResponseCode
 import com.grepp.spring.infra.error.exceptions.CommonException
 import com.grepp.spring.infra.response.ApiResponse
 import org.slf4j.LoggerFactory

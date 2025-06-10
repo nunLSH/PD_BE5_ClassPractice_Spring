@@ -1,7 +1,5 @@
 package com.grepp.spring.infra.response
 
-import com.grepp.infra.response.ResponseCode
-
 @JvmRecord
 data class ApiResponse<T>(
     val code: String,
