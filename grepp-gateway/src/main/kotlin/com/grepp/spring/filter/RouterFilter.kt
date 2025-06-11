@@ -36,7 +36,7 @@ class RouteConfiguration{
     val userService = route("user-service")
         .GET("/api/member/**", http())
         .POST("/api/member/**", http())
-        .filter(lb("user-serivce"))
+        .filter(lb("user-service"))
         .build()
 
     val mailService = route("mail-service")
