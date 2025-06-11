@@ -1,6 +1,5 @@
 package com.grepp.spring.filter
 
-import org.springframework.cloud.gateway.server.mvc.filter.BeforeFilterFunctions.uri
 import org.springframework.cloud.gateway.server.mvc.filter.LoadBalancerFilterFunctions.lb
 import org.springframework.cloud.gateway.server.mvc.handler.GatewayRouterFunctions.route
 import org.springframework.cloud.gateway.server.mvc.handler.HandlerFunctions.http
