@@ -1,0 +1,11 @@
+spring:
+  data:
+    redis:
+      host: redis-19970.c256.us-east-1-2.ec2.redns.redis-cloud.com
+      username: default
+      password: mwGJIRMJNPXi9775rlTOjF0hIqQGL4jX
+      port: 19970
+      ssl:
+        enabled: true
+server:
+  port: 8081
