@@ -59,22 +59,22 @@ class RedisConfig {
         redisTemplate.valueSerializer = GenericJackson2JsonRedisSerializer(objectMapper)
         return redisTemplate
     }
-}
 
-@Bean
-fun messageListenerAdapter(listener: EventMessageDelegate): MessageListenerAdapter {
-    return MessageListenerAdapter(listener, "handleMessage")
-}
+    @Bean
+    fun messageListenerAdapter(listener: EventMessageDelegate): MessageListenerAdapter {
+        return MessageListenerAdapter(listener, "handleMessage")
+    }
 
-@Bean
-fun redisMessageListenerContainer(
-    connectionFactory: RedisConnectionFactory,
-    listener: MessageListenerAdapter
-): RedisMessageListenerContainer {
-    val container = RedisMessageListenerContainer()
-    container.setConnectionFactory(connectionFactory)
-    container.addMessageListener(listener, ChannelTopic.of("chat"))
-    return container
+    @Bean
+    fun redisMessageListenerContainer(
+        connectionFactory: RedisConnectionFactory,
+        listener: MessageListenerAdapter
+    ): RedisMessageListenerContainer {
+        val container = RedisMessageListenerContainer()
+        container.setConnectionFactory(connectionFactory)
+        container.addMessageListener(listener, ChannelTopic.of("chat"))
+        return container
+    }
 }
 
 @Configuration
@@ -103,5 +103,3 @@ class WebMvcConfig : WebMvcConfigurer {
             .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
     }
 }
-
-
