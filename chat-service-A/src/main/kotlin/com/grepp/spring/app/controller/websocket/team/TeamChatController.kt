@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping
 
 @Controller
 @MessageMapping("chat")
-class TeamChatController {
+class TeamChatController(
+    private val redisTemplate: RedisTemplate<String, String>
+) {
 
     @GetMapping("/")
     fun index(): String {
@@ -18,7 +20,7 @@ class TeamChatController {
     }
 
     @MessageMapping("")
-    fun chat( message: ChatMessage) : WebSocketResponse<ChatMessage>{
-        return WebSocketResponse.success(message)
+    fun chat( message: ChatMessage) {
+        redisTemplate.convertAndSend("chat", message)
     }
 }
