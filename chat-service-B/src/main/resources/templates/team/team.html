@@ -92,66 +92,66 @@
 
     document.addEventListener('DOMContentLoaded', () => {
       user = prompt("사용할 닉네임을 입력하세요.");
-    })
 
-    const stompClient = new StompJs.Client({
-      brokerURL: 'ws://localhost:8081/connect'
-    });
-
-    stompClient.onConnect = frame => {
-      console.log('Connected: ' + frame);
-      stompClient.subscribe('/topic/chat', chat => {
-        const data = JSON.parse(chat.body);
-        console.dir(data);
-        renderChatMessage(data.data);
+      const stompClient = new StompJs.Client({
+        brokerURL: 'ws://localhost:8081/connect'
       });
-    };
 
-    const sendMessage = () => {
-      const chatText = document.querySelector('#chatText').value;
-      const payload = {"content":chatText, "sender":user}
-      stompClient.publish({
-        destination: "/app/chat",
-        body: JSON.stringify(payload)
+      stompClient.onConnect = frame => {
+        console.log('Connected: ' + frame);
+        stompClient.subscribe('/topic/chat', chat => {
+          const data = JSON.parse(chat.body);
+          console.dir(data);
+          renderChatMessage(data.data);
+        });
+      };
+
+      const sendMessage = () => {
+        const chatText = document.querySelector('#chatText').value;
+        const payload = {"content":chatText, "sender":user}
+        stompClient.publish({
+          destination: "/app/chat",
+          body: JSON.stringify(payload)
+        })
+      }
+
+      chatText.addEventListener('keydown', ev => {
+        if (ev.key === 'Enter' && !ev.shiftKey) {
+          ev.preventDefault();
+          sendMessage();
+          ev.target.value = ''
+        }
       })
-    }
 
-    chatText.addEventListener('keydown', ev => {
-      if (ev.key === 'Enter' && !ev.shiftKey) {
-        ev.preventDefault();
+      document.querySelector('#btnSend').addEventListener('click', ev => {
         sendMessage();
-        ev.target.value = ''
+      });
+
+      stompClient.activate();
+
+      const renderChatMessage = data => {
+
+        let chatHtml = document.querySelector('#chatMessageTemplate').cloneNode(true);
+        chatHtml.id = null;
+        if(user === data.sender) {
+          chatHtml.classList.add('right');
+        }
+
+        if(chatLog[data.sender] === data.time){
+          chatHtml.classList.add('coalesce');
+          chatHtml.textContent = DOMPurify.sanitize(data.content);
+          document.querySelector('#chatMessages').appendChild(chatHtml);
+          return;
+        }
+
+        chatHtml.querySelector('.sender').textContent = data.sender;
+        chatHtml.querySelector('.sendTime').textContent = data.time;
+        const textNode = document.createTextNode(DOMPurify.sanitize(data.content));
+        chatHtml.appendChild(textNode);
+        document.querySelector('#chatMessages').appendChild(chatHtml);
+        chatLog[data.sender] = data.time;
       }
     })
-
-    document.querySelector('#btnSend').addEventListener('click', ev => {
-      sendMessage();
-    });
-
-    stompClient.activate();
-
-    const renderChatMessage = data => {
-
-      let chatHtml = document.querySelector('#chatMessageTemplate').cloneNode(true);
-      chatHtml.id = null;
-      if(user === data.sender) {
-        chatHtml.classList.add('right');
-      }
-
-      if(chatLog[data.sender] === data.time){
-        chatHtml.classList.add('coalesce');
-        chatHtml.textContent = DOMPurify.sanitize(data.content);
-        document.querySelector('#chatMessages').appendChild(chatHtml);
-        return;
-      }
-
-      chatHtml.querySelector('.sender').textContent = data.sender;
-      chatHtml.querySelector('.sendTime').textContent = data.time;
-      const textNode = document.createTextNode(DOMPurify.sanitize(data.content));
-      chatHtml.appendChild(textNode);
-      document.querySelector('#chatMessages').appendChild(chatHtml);
-      chatLog[data.sender] = data.time;
-    }
 
 
 
