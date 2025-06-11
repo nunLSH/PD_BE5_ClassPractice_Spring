@@ -20,7 +20,6 @@ import org.springframework.data.redis.serializer.StringRedisSerializer
 @Configuration
 @EnableRedisRepositories
 class RedisConfig(
-    private val eventMessageDelegate: EventMessageDelegate
 ) {
     @Value("\${spring.data.redis.port}")
     private var port = 0
