@@ -1,6 +1,7 @@
 package com.grepp.spring.filter
 
 import org.springframework.cloud.gateway.server.mvc.filter.BeforeFilterFunctions.uri
+import org.springframework.cloud.gateway.server.mvc.filter.LoadBalancerFilterFunctions.lb
 import org.springframework.cloud.gateway.server.mvc.handler.GatewayRouterFunctions.route
 import org.springframework.cloud.gateway.server.mvc.handler.HandlerFunctions.http
 import org.springframework.context.annotation.Bean
@@ -35,19 +36,26 @@ class RouteConfiguration{
     val userService = route("user-service")
         .GET("/api/member/**", http())
         .POST("/api/member/**", http())
-        .before(uri("http://localhost:8082"))
+        .filter(lb("user-serivce"))
         .build()
 
     val mailService = route("mail-service")
         .GET("/mail/**", http())
         .POST("/mail/**", http())
-        .before(uri("http://localhost:8083"))
+        .filter(lb("mail-service"))
+        .build()
+
+    val authService = route("auth-service")
+        .GET("/auth/**", http())
+        .POST("/auth/**", http())
+        .filter(lb("auth-service"))
         .build()
 
     @Bean
-    fun headerExistsRoute(): RouterFunction<ServerResponse> {
+    fun routers(): RouterFunction<ServerResponse> {
         return userService
             .and(mailService)
+            .and(authService)
             .filter(handlerFilterFnc())
     }
 }
