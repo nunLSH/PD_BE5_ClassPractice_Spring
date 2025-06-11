@@ -22,7 +22,7 @@ class FeignCommonConfig {
         )
     }
 
-    @org.springframework.context.annotation.Bean
+    @Bean
     fun requestInterceptor(): RequestInterceptor {
         return RequestInterceptor { requestTemplate: RequestTemplate? ->
             log.info("=========================================================")
