@@ -14,16 +14,16 @@ logging:
     root: info
     org:
       hibernate:
-        SQL: debug
+        SQL: info
         type:
           descriptor:
-            sql: trace
+            sql: info
       springframework:
         cloud:
-          openfeign: trace
+          openfeign: info
         client:
-          RestTemplate: debug
-        security: debug
+          RestTemplate: info
+        security: info
 
 spring:
   mail:
@@ -45,3 +45,12 @@ spring:
       port: 19970
       ssl:
         enabled: true
+  application:
+    name: mail-service
+
+eureka:
+  instance:
+    instance-id: mail-service-A
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/

@@ -66,19 +66,29 @@ spring:
       ssl:
         enabled: true
 
+  application:
+    name: auth-service
+
+eureka:
+  instance:
+    instance-id: auth-service-A
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
 logging:
   level:
     root: info
     org:
       hibernate:
-        SQL: debug
+        SQL: info
         type:
           descriptor:
-            sql: trace
+            sql: info
       springframework:
         cloud:
-          openfeign: trace
-        security: trace
+          openfeign: info
+        security: info
 
 jwt:
   secrete: shalglsajoeflkmsljsdweofhgnvczxncasjfdkaweo
